@@ -19,20 +19,21 @@ export class Configuration {
   withCredentials?: boolean;
 
   constructor(
-    configurationParameters: ConfigurationParameters = {},
-    cf: Config
-  ) {
-    // this.apiKeys = configurationParameters.apiKeys;
-    // this.username = configurationParameters.username;
-    // this.password = configurationParameters.password;
-    // this.accessToken = configurationParameters.accessToken;
-    // this.basePath = configurationParameters.basePath;
-    // this.withCredentials = configurationParameters.withCredentials;
+    configurationParameters: ConfigurationParameters = {}) {
+    this.apiKeys = configurationParameters.apiKeys;
+    this.username = configurationParameters.username;
+    this.password = configurationParameters.password;
+    this.accessToken = configurationParameters.accessToken;
+    this.basePath = configurationParameters.basePath;
+    this.withCredentials = configurationParameters.withCredentials;
+
+    const cf = new Config();
     this.username = cf.username;
     this.password = cf.password;
     this.basePath = cf.basePath;
     this.withCredentials = cf.withCredentials;
   }
+
 
   /**
    * Select the correct content-type to use for a request.
