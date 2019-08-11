@@ -1,0 +1,29 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Angular",
+      "url": "http://localhost:4200/",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "MoneyAccountRegister.html",
+      "url": "file:///Users/garyd/NewCode/SAFBC/OMB/webOMmoney/MoneyAccountRegister.html",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Apply.html",
+      "url": "file:///Users/garyd/NewCode/SAFBC/OMB/webOMmoney/Apply.html",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
