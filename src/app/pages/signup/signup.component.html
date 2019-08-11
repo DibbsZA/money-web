@@ -1,1 +1,24 @@
-<p>signup works!</p>
+<h1>Signup</h1>
+<div class='form-group'>
+  <input type="text" [formControl]="surname" class="form-control" placeholder='Surname'>
+  <input type="text" [formControl]="names" class="form-control" placeholder="Names">
+  <input type="text" [formControl]="sex" class="form-control" placeholder="sex">
+  <input type="text" [formControl]="nationality" class="form-control" placeholder="nationality">
+  <input type="text" [formControl]="status" class="form-control" placeholder="status">
+  <input type="text" [formControl]="email" class="form-control" placeholder="email">
+</div>
+
+
+<button type="button" class="btn btn-primary">
+  Submit
+</button>
+<button type="button" class="btn btn-secondary">
+  Fill out with Indy
+</button>
+<hr>
+<button type="button" class="btn btn-secondary" (click)='getSchema()'>
+  Get Schemas
+</button>
+<pre>
+  {{ schemaData | async | json }}
+</pre>

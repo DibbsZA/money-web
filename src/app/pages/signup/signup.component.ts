@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { SchemaService } from 'src/app/services/schema.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
-  constructor() { }
+  schemaData: Observable<any>;
+  mydate;
+  surname = new FormControl('');
+  names = new FormControl('');
+  sex = new FormControl('');
+  nationality = new FormControl('');
+  status = new FormControl('');
+  email = new FormControl('');
 
-  ngOnInit() {
+  constructor(
+    private schemaSvc: SchemaService,
+  ) {
+    this.mydate = Date.now();
+  }
+
+
+  public getSchema() {
+    this.schemaData = this.schemaSvc.apiSchemasGet();
   }
 
 }
