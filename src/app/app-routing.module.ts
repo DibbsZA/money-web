@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignupComponent } from './pages/signup/signup.component';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TesterComponent } from './pages/tester/tester.component';
 
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
+  { path: 'tester', component: TesterComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' },
 ];
 
