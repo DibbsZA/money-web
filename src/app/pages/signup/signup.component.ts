@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SchemaService } from 'src/app/services/schema.service';
 import { Observable } from 'rxjs';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class SignupComponent {
 
-  schemaData: Observable<any>;
+
   mydate;
   surname = new FormControl('');
   names = new FormControl('');
@@ -19,15 +20,14 @@ export class SignupComponent {
   status = new FormControl('');
   email = new FormControl('');
 
+  bsModalRef: BsModalRef;
+
   constructor(
-    private schemaSvc: SchemaService,
+    private modalService: BsModalService
   ) {
     this.mydate = Date.now();
   }
 
 
-  public getSchema() {
-    this.schemaData = this.schemaSvc.apiSchemasGet();
-  }
 
 }
