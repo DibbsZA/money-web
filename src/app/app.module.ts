@@ -16,18 +16,26 @@ import { SchemaService } from './services/schema.service';
 import { SignupComponent } from './pages/signup/signup.component';
 import { Configuration } from './configuration';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ShowqrComponent } from './components/showqr/showqr.component';
+import { TesterComponent } from './pages/tester/tester.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
+    ShowqrComponent,
+    TesterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    QRCodeModule,
     HttpClientModule,
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     ConnectionService,
@@ -39,6 +47,9 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
   ],
   bootstrap: [
     AppComponent
+  ],
+  entryComponents: [
+    ShowqrComponent
   ]
 })
 export class AppModule {
