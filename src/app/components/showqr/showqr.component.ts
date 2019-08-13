@@ -19,6 +19,9 @@ export class ShowqrComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // FIXME: Show the data that is passed in and not sample text!!!!
+
     this.list.push('PROFIT!!!');
     // assign a value
     this.angularxQrCode = 'Your QR code data string';
