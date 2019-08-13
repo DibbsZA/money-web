@@ -1,11 +1,7 @@
 <h1>Signup</h1>
-<div class="row">
-  <div class="col-xs-12 col-12">
-    <pagination [totalItems]="300"></pagination>
-  </div>
-</div>
-<button type="button" class="btn btn-info" (click)="setPage(3)">Set current page to: 3</button>
 
+
+<p>Form fill test</p>
 <div class='form-group'>
   <input type="text" [formControl]="surname" class="form-control" placeholder='Surname'>
   <input type="text" [formControl]="names" class="form-control" placeholder="Names">
@@ -19,15 +15,25 @@
 <button type="button" class="btn btn-primary">
   Submit
 </button>
-<button type="button" class="btn btn-secondary">
+&nbsp;
+<button type="button" class="btn btn-secondary" (click)="fillWithIndy()">
   Fill out with Indy
 </button>
 <hr>
+<p>Show modal with QR data</p>
 <button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Create modal with
   component</button><br />
+<hr>
+<p>API data retrieval</p>
 <button type="button" class="btn btn-secondary" (click)='getSchema()'>
   Get Schemas
 </button>
 <pre>
   {{ schemaData | async | json }}
 </pre>
+<hr>
+<div class="row">
+  <div class="col-xs-12 col-12">
+    <pagination [(totalItems)]="totalItems"></pagination>
+  </div>
+</div>
