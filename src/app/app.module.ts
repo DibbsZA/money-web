@@ -20,6 +20,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ShowqrComponent } from './components/showqr/showqr.component';
 import { TesterComponent } from './pages/tester/tester.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,12 @@ import { TesterComponent } from './pages/tester/tester.component';
     QRCodeModule,
     HttpClientModule,
     ButtonsModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    PopoverModule.forRoot(),
+    TooltipModule.forRoot(),
+    CarouselModule.forRoot(),
+    PaginationModule.forRoot(),
+    AlertModule.forRoot()
   ],
   providers: [
     ConnectionService,

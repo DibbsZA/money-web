@@ -27,7 +27,11 @@
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/modernizr-3.1.0.min.js",
+              "src/assets/js/combined.js"
+            ]
           },
           "configurations": {
             "production": {

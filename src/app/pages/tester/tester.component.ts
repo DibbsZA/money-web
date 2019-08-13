@@ -23,12 +23,20 @@ export class TesterComponent implements OnInit {
   schemaData: Observable<any>;
   bsModalRef: BsModalRef;
 
+  totalItems = 64;
+  currentPage = 4;
+
+
   constructor(
     private schemaSvc: SchemaService,
     private modalService: BsModalService
   ) { }
 
   ngOnInit() {
+  }
+
+  setPage(pageNo: number): void {
+    this.currentPage = pageNo;
   }
 
   public getSchema() {
