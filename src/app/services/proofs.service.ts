@@ -1,5 +1,5 @@
 import { Injectable, Optional, Inject } from '@angular/core';
-import { Proof } from '../models/proof.models';
+import { Proof } from '../models/proof.model';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
 import { Configuration } from '../configuration';

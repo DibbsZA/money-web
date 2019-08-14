@@ -1,11 +1,11 @@
 import { Injectable, Inject, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
-import { Credential } from '../models/credential.models';
-import { ResourceId } from '../models/resource-id.models';
+import { Credential } from '../models/credential.model';
+import { ResourceId } from '../models/resourceId.model';
 import { Configuration } from '../configuration';
 import { BASE_PATH } from '../variables';
-import { CreateCredential } from '../models/create-credential.models';
+import { CreateCredential } from '../models/createCredential.model';
 
 @Injectable({
   providedIn: 'root'

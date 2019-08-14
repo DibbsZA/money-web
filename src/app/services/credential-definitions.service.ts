@@ -1,9 +1,9 @@
 import { Injectable, Inject, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent } from '@angular/common/http';
 import { Configuration } from '../configuration';
-import { CredentialDef } from '../models/credential-def.models';
+import { CredentialDef } from '../models/credentialDef.model';
 import { Observable } from 'rxjs/';
-import { ResourceId } from '../models/resource-id.models';
+import { ResourceId } from '../models/resourceId.model';
 import { BASE_PATH } from '../variables';
 
 import { CustomHttpUrlEncodingCodec } from '../encoder';

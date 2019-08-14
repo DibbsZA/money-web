@@ -1,6 +1,6 @@
 import { Injectable, Optional, Inject } from '@angular/core';
-import { Schema } from '../models/schema.models';
-import { CreateSchema } from '../models/create-schema.models';
+import { Schema } from '../models/schema.model';
+import { CreateSchema } from '../models/createSchema.model';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
 import { Configuration } from '../configuration';
@@ -59,7 +59,7 @@ export class SchemaService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -75,9 +75,9 @@ export class SchemaService {
     return this.httpClient.get<Array<Schema>>(`${this.basePath}/api/schemas`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -106,7 +106,7 @@ export class SchemaService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -122,9 +122,9 @@ export class SchemaService {
     return this.httpClient.delete<any>(`${this.basePath}/api/schemas/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -159,7 +159,7 @@ export class SchemaService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -180,9 +180,9 @@ export class SchemaService {
       request,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }

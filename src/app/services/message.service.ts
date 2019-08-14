@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
 import { Configuration } from '../configuration';
 import { BASE_PATH } from '../variables';
-import { Message } from '../models/message.models';
+import { Message } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root'

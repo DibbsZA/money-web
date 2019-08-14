@@ -6,10 +6,10 @@ import {
 import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 
-import { Connection } from '../models/connection.models';
-import { Invitation } from '../models/invitation.models';
-import { ResourceId } from '../models/resource-id.models';
-import { Solution } from '../models/solution.models';
+import { Connection } from '../models/connection.model';
+import { Invitation } from '../models/invitation.model';
+import { ResourceId } from '../models/resourceId.model';
+import { Solution } from '../models/solution.model';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
