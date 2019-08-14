@@ -127,7 +127,7 @@ export class TesterComponent implements OnInit {
         'Pass your data',
       ],
       title: 'Modal with component',
-      qrdata: data
+      invitedata: data
     };
     this.bsModalRef = this.modalService.show(ShowqrComponent, { initialState });
     this.bsModalRef.content.closeBtnName = 'Close';
