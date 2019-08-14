@@ -71,7 +71,8 @@
   <div class="container container-loanflow pad140 padb120">
     <div>
       <p>For assistance, please call 0860 000 883.</p>
-    </div><input type="text" id="workprogress" class="displaynone" name="workprogress" value="14.29">
+    </div>
+    <input type="text" id="workprogress" class="displaynone" name="workprogress" value="14.29">
     <!-- <form id="acquisitionflow_register" autocomplete="off" method="POST"> -->
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -83,13 +84,14 @@
           <div class="col-sm-6">
             <div class="form-group infield">
               <label for="fidnumber">ID number</label>
-              <input type="number" maxlength="50" class="form-control" value="" placeholder="ID number">
+              <input [formControl]="identityNumber" type="number" maxlength="50" class="form-control" value=""
+                placeholder="ID number">
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group infield required">
               <label for="ftitle">Title</label>
-              <select name="register.title.0" class="form-control no-selection" id="ftitle">
+              <select [formControl]="title" name="register.title.0" class="form-control no-selection" id="ftitle">
                 <option value="">Title</option>
                 <option value="DR">Dr</option>
                 <option value="MR">Mr</option>
@@ -102,15 +104,15 @@
           <div class="col-sm-6">
             <div class="form-group infield required">
               <label for="ffname">First name(s)</label>
-              <input type="text" maxlength="50" class="form-control" id="ffname" name="register.firstName.0" value=""
-                placeholder="First name(s)">
+              <input [formControl]="names" type="text" maxlength="50" class="form-control" id="ffname"
+                name="register.firstName.0" value="" placeholder="First name(s)">
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group infield required">
               <label for="flname">Surname</label>
-              <input type="text" maxlength="50" class="form-control" id="flname" name="register.lastName.0" value=""
-                placeholder="Surname">
+              <input [formControl]="surname" type="text" maxlength="50" class="form-control" id="flname"
+                name="register.lastName.0" value="" placeholder="Surname">
             </div>
           </div>
         </div>
@@ -118,15 +120,15 @@
           <div class="col-sm-6">
             <div class="form-group infield required">
               <label for="finitials">Initials</label>
-              <input type="text" maxlength="10" class="form-control" id="finitials" name="register.initials.0" value=""
-                placeholder="Initials">
+              <input [formControl]="initials" type="text" maxlength="10" class="form-control" id="finitials"
+                name="register.initials.0" value="" placeholder="Initials">
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group infield required">
               <label for="fcellphone">Cell phone number</label>
-              <input type="tel" maxlength="10" id="fcellphone" class="form-control" id="fcellphone"
-                name="register.cellphone.0" value="" placeholder="Cell phone number">
+              <input [formControl]="cellphone" type="tel" maxlength="10" id="fcellphone" class="form-control"
+                id="fcellphone" name="register.cellphone.0" value="" placeholder="Cell phone number">
             </div>
           </div>
         </div>
@@ -134,9 +136,10 @@
           <div class="col-sm-6">
             <div class="form-group infield required">
               <label for="fcountryofbirth">Country of birth</label>
-              <select id="fcountryofbirth" name="register.countryOfBirth.0" class="form-control no-selection">
+              <select [formControl]='countryOfBirth' id="fcountryofbirth" name="register.countryOfBirth.0"
+                class="form-control no-selection">
                 <option value="" class="empty_option">Country of birth</option>
-                <option value="ZA">South Africa</option>
+                <option value="ZAF">South Africa</option>
                 <option value="ZN">Namibia</option>
                 <option value="242">Afghanistan</option>
                 <option value="243">Aland Islands</option>
@@ -397,13 +400,29 @@
           <div class="col-sm-6">
             <div class="form-group infield required">
               <label for="femailaddress">Email Address</label>
-              <input type="email" maxlength="50" class="form-control" id="femailaddress" name="register.emailAddress.0"
-                value="" placeholder="Email Address">
+              <input [formControl]='email' type="email" maxlength="50" class="form-control" id="femailaddress"
+                name="register.emailAddress.0" value="" placeholder="Email Address">
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group infield required">
+              <label for="faddress">Address</label>
+              <textarea [formControl]='address' type="text" class="form-control" id="faddress" name="register.address.0"
+                value="" placeholder="Address"></textarea>
+            </div>
+          </div>
+          <div class="col-sm-6">
+
+          </div>
+        </div>
       </div>
-    </div><input type="hidden" id="wf_action_requested" name="wf_action_requested" value="">
+    </div>
+    <input [formControl]="dateOfBirth" type="hidden" id="fdateOfBirth" readonly>
+    <input [formControl]="nationality" type="hidden" id="fnationality" readonly>
+    <input [formControl]="sex" type="hidden" id="fsex" readonly>
+
     <div class="loanflow-buttons icon-buttons">
       <button id="wf_do_next" class="btn success-light" name="wf_do_next">NEXT</button>
       <a id="workflow_exit" href="./MoneyAccountRegister#exitreason-modal" role="button"
@@ -445,7 +464,8 @@
         </div>
       </div>
     </div>
-  </div><button id="sessionExtendModalButton" class="btn btn-primary displaynone" data-toggle="modal"
+  </div>
+  <button id="sessionExtendModalButton" class="btn btn-primary displaynone" data-toggle="modal"
     data-target="#sessionExtendModal"></button>
   <div class="modal fade om-modal" id="sessionExtendModal" role="dialog">
     <div class="modal-dialog">

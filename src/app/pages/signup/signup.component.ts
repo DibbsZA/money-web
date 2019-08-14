@@ -15,10 +15,17 @@ export class SignupComponent {
   mydate;
   surname = new FormControl('');
   names = new FormControl('');
+  initials = new FormControl('');
   sex = new FormControl('');
   nationality = new FormControl('');
+  countryOfBirth = new FormControl('');
   status = new FormControl('');
   email = new FormControl('');
+  cellphone = new FormControl('');
+  title = new FormControl('');
+  identityNumber = new FormControl();
+  dateOfBirth = new FormControl('');
+  address = new FormControl('');
 
   bsModalRef: BsModalRef;
 
