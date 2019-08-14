@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -10,8 +10,9 @@ export class ShowqrComponent implements OnInit {
   title: string;
   closeBtnName: string;
   list: any[] = [];
+  invitedata: string;
 
-  public angularxQrCode: string = null;
+  angularxQrCode: string;
 
   constructor(
     public bsModalRef: BsModalRef
@@ -20,11 +21,7 @@ export class ShowqrComponent implements OnInit {
 
   ngOnInit() {
 
-    // FIXME: Show the data that is passed in and not sample text!!!!
-
-    this.list.push('PROFIT!!!');
-    // assign a value
-    this.angularxQrCode = 'Your QR code data string';
+    this.angularxQrCode = this.invitedata;
   }
 
 }
