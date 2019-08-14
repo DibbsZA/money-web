@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { SchemaService } from 'src/app/services/schema.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { Observable } from 'rxjs';
-import { map, tap, take } from 'rxjs/operators';
+import { Observable, timer, BehaviorSubject } from 'rxjs';
+import { map, tap, take, concatMap, merge, switchMap } from 'rxjs/operators';
 import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
 import { FormControl } from '@angular/forms';
 import { ConnectionService } from 'src/app/services/connection.service';
 
 import * as faker from 'faker';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Connection } from 'src/app/models/connection.model';
 
 @Component({
   selector: 'app-tester',
@@ -31,6 +32,10 @@ export class TesterComponent implements OnInit {
   totalItems = 15;
   currentPage = 4;
 
+  connectionsData: Observable<Connection[]>;
+  connectionData: Observable<Connection>;
+  load$ = new BehaviorSubject('');
+
 
   constructor(
     private vcxSchemaSvc: SchemaService,
@@ -45,7 +50,7 @@ export class TesterComponent implements OnInit {
 
     // 1st Generate random name for new connection for user
     // In real world we could use applicant OTP verified phone number?
-    const connectName = 'calculating-3080a3e5-7b04-471f-b7d6-4763fc9b5229'; // faker.hacker.ingverb() + '-' + faker.random.uuid();
+    const connectName = faker.random.uuid();
     console.log('random connection name: ' + connectName);
 
     // Check if we don't have connection name already
@@ -118,6 +123,62 @@ export class TesterComponent implements OnInit {
 
   public getSchema() {
     this.schemaData = this.vcxSchemaSvc.apiSchemasGet();
+    this.connectionsData = this.vcxConnectionSvc.apiConnectionsGet();
+  }
+
+  public async addConnection() {
+    const connectName = faker.random.uuid();
+    console.log('random connection name: ' + connectName);
+    await this.vcxConnectionSvc
+      .apiConnectionsIdPost(connectName)
+      .toPromise()
+      .then(async connResult => {
+        console.log('TCL: TesterComponent -> fillWithIndy -> connResult', connResult);
+
+        // User is created so now we try get the invite code again.
+        // await this.vcxConnectionSvc
+        //   .apiConnectionsIdInviteGet(connectName)
+        //   .toPromise()
+        //   .then(invite => {
+        //     console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
+        //     this.openModalWithComponent(invite.invitationString);
+
+        //   })
+        //   .catch();
+
+      })
+      // tslint:disable-next-line: no-shadowed-variable
+      .catch(async e => {
+        console.log('TCL: TesterComponent -> fillWithIndy -> error', e);
+        // tslint:disable-next-line: no-shadowed-variable
+        const error: HttpErrorResponse = e;
+      });
+  }
+
+  /**
+   * pollConnectionEstablished
+   */
+  public async pollConnectionEstablished(id) {
+    const connection$ = this.vcxConnectionSvc.apiConnectionsIdGet(id);
+
+    this.connectionData = this.load$.pipe(
+      switchMap(_ => timer(0, 1000).pipe(
+        concatMap(_ => connection$),
+        map((response: Connection) => response),
+        tap(x => {
+          if (x.state === 4) {   // State has switched to connected
+            this.load$.unsubscribe();  // stop polling
+            // TODO: Send proof request
+          }
+        })
+      )
+      )
+    );
+  }
+
+  public async getConnectionId(id: string) {
+    this.connectionData = this.vcxConnectionSvc.apiConnectionsIdGet(id);
+    ;
   }
 
   openModalWithComponent(data) {

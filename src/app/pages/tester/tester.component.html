@@ -27,11 +27,38 @@
 <hr>
 <p>API data retrieval</p>
 <button type="button" class="btn btn-secondary" (click)='getSchema()'>
-  Get Schemas
+  Get API Data
 </button>
-<pre>
-  {{ schemaData | async | json }}
-</pre>
+<!-- <div class="container-fluid"> -->
+<!-- <div class="container"> -->
+<div class="row">
+  <div class="col-6">
+    <h3>Schemas</h3>
+    <pre *ngIf="schemaData">
+    {{ schemaData | async | json }}
+    </pre>
+  </div>
+  <div class="col-6">
+    <h3>Connections</h3>
+    <button type="button" class="btn btn-primary" (click)='addConnection()'>
+      Add random connection
+    </button>
+    <button type="button" class="btn btn-secondary" (click)='getConnectionId("
+      77601f66-fdf8-4ec4-9b82-6e14772daeb0")'>
+      Poll ID 77601f66-fdf8-4ec4-9b82-6e14772daeb0
+    </button>
+    <pre *ngIf="connectionsData">
+    {{ connectionsData | async | json }}
+    </pre>
+    <pre *ngIf="connectionData">
+    {{ connectionData | async | json }}
+    </pre>
+  </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->
+
+
 <hr>
 <div class="row">
   <div class="col-xs-12 col-12">
