@@ -133,7 +133,8 @@ export class SchemaService {
    *
    * /_** Creates new Schema identified by VCXS resource id.
    * @param id identifier of credential definition
-   * @param request For **\&quot;method\&quot;** use value **\&quot;load\&quot;** if schema already exists on ledger and you only want to create its representation it VCXS. Use value **\&quot;create\&quot;** if new schema shall be created and written on the ledger.
+   * @param request For **\&quot;method\&quot;** use value **\&quot;load\&quot;** if schema already exists on ledger and you only want to create its representation it VCXS.
+   * Use value **\&quot;create\&quot;** if new schema shall be created and written on the ledger.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
