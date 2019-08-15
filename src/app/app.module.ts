@@ -29,6 +29,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
+import { CredentialsComponent } from './pages/credentials/credentials.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
     SignupComponent,
     ShowqrComponent,
     TesterComponent,
-    MessagesComponent
+    MessagesComponent,
+    CredentialsComponent
   ],
   imports: [
     BrowserModule,
