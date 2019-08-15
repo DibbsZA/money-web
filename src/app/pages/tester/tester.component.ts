@@ -178,7 +178,6 @@ export class TesterComponent implements OnInit {
 
   public async getConnectionId(id: string) {
     this.connectionData = this.vcxConnectionSvc.apiConnectionsIdGet(id);
-    ;
   }
 
   openModalWithComponent(data) {

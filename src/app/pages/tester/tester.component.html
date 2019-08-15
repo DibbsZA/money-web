@@ -40,12 +40,11 @@
   </div>
   <div class="col-6">
     <h3>Connections</h3>
-    <button type="button" class="btn btn-primary" (click)='addConnection()'>
+    <button type="button" (click)='addConnection()' class="btn btn-primary">
       Add random connection
     </button>
-    <button type="button" class="btn btn-secondary" (click)='getConnectionId("
-      77601f66-fdf8-4ec4-9b82-6e14772daeb0")'>
-      Poll ID 77601f66-fdf8-4ec4-9b82-6e14772daeb0
+    <button type="button" (click)='getConnectionId("77601f66-fdf8-4ec4-9b82-6e14772daeb0")' class="btn btn-secondary">
+      Poll ID
     </button>
     <pre *ngIf="connectionsData">
     {{ connectionsData | async | json }}
