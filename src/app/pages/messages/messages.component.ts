@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { SchemaService } from 'src/app/services/schema.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+// import { SchemaService } from 'src/app/services/schema.service';
+// import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable, timer, BehaviorSubject } from 'rxjs';
-import { map, tap, take, concatMap, merge, switchMap } from 'rxjs/operators';
-import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
-import { FormControl } from '@angular/forms';
+// import { map, tap, take, concatMap, merge, switchMap } from 'rxjs/operators';
+// import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
+// import { FormControl } from '@angular/forms';
 import { ConnectionService } from 'src/app/services/connection.service';
 
-import * as faker from 'faker';
-import { HttpErrorResponse } from '@angular/common/http';
+// import * as faker from 'faker';
+// import { HttpErrorResponse } from '@angular/common/http';
 import { Connection } from 'src/app/models/connection.model';
 import { Message } from 'src/app/models/message.model';
 import { MessageService } from 'src/app/services/message.service';

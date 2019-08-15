@@ -1,30 +1,42 @@
-<div class="row">
-  <div class="col-6">
-    <h3>Connections</h3>
-    <!-- <button type="button" (click)='addConnection()' class="btn btn-primary">
-      Add random connection
-    </button> -->
-    <!-- <button type="button" (click)='getConnectionId("77601f66-fdf8-4ec4-9b82-6e14772daeb0")' class="btn btn-secondary">
-      Poll ID
-    </button> -->
-    <pre *ngIf="connectionsData$">
-    {{ connectionsData$ | async | json }}
-    </pre>
-    <pre *ngIf="connectionData$">
-    {{ connectionData$ | async | json }}
-    </pre>
+<div id="body_acquisitionflow_register">
+
+  <div id="overlay-temp" style="display: none;">
+    <!-- <div id="overlay-temp-content"></div> -->
+    <!-- <div id="overlay-temp-logo">Loading... Please Wait...</div> -->
   </div>
-  <div class="col-6">
-    <h3>Messages</h3>
-    <input type="search" name="search" id="search" [(ngModel)]="connectionId">&nbsp;
-    <button type="button" (click)='getMessagesById(connectionId)' class="btn btn-primary">
-      Get Mesages by Id {{connectionId}}
-    </button>
-    <pre *ngIf="messagesData$">
-    {{ messagesData$ | async | json }}
-    </pre>
-    <pre *ngIf="messageData$">
-    {{ messageData$ | async | json }}
-    </pre>
+  <div class="container container-loanflow pad140 padb120">
+    <ul>
+      <li><a href="/signup">Signup</a></li>
+    </ul>
+    <form id="acquisitionflow_register">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Messages</h3>
+        </div>
+        <div class="panel-body pad15">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group infield">
+                <label>connectionId</label>
+                <input [(ngModel)]="connectionId" type="text" maxlength="50" class="form-control"
+                  [value]="connectionId">
+              </div>
+              <div class="loanflow-buttons icon-buttons">
+                <button (click)="getMessagesById(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
+                  name="wf_do_next">Run</button>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <pre *ngIf="messagesData$">
+{{ messagesData$ | async | json }}
+</pre>
+              <pre *ngIf="messageData$">
+{{ messageData$ | async | json }}
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
