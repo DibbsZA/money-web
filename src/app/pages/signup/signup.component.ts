@@ -1,40 +1,139 @@
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormControlName } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
+import { ConnectionService } from 'src/app/services/connection.service';
+import * as faker from 'faker';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
 
 
-  mydate;
-  surname = new FormControl('');
-  names = new FormControl('');
-  initials = new FormControl('');
-  sex = new FormControl('');
-  nationality = new FormControl('');
-  countryOfBirth = new FormControl('');
-  status = new FormControl('');
-  email = new FormControl('');
-  cellphone = new FormControl('');
-  title = new FormControl('');
-  identityNumber = new FormControl();
-  dateOfBirth = new FormControl('');
-  address = new FormControl('');
+
+
+  signupForm = this.fb.group({
+    identityNumber: ['', [Validators.required, Validators.minLength(13)]],
+    surname: [''],
+    names: [''],
+    initials: [''],
+    sex: [''],
+    nationality: [''],
+    countryOfBirth: [''],
+    status: [''],
+    email: [''],
+    cellphone: [''],
+    title: [''],
+    dateOfBirth: [''],
+    address: ['']
+  });
+
 
   bsModalRef: BsModalRef;
+  connectName: string;
+  mydate: number;
+  indyLoading = false;
+  indyStatusMessage: string;
 
   constructor(
-    private modalService: BsModalService
+    private fb: FormBuilder,
+    private modalService: BsModalService,
+    private vcxConnectionSvc: ConnectionService,
   ) {
-    this.mydate = Date.now();
+    this.indyStatusMessage = null;
+    this.indyLoading = false;
   }
 
+  ngOnInit(): void {
+    // this.signupForm.patchValue({ identityNumber: '1234567890123' });
+  }
+  /**
+   * invite
+   */
+  public async invite() {
+    // 1st Generate random name for new connection for user
+    // In real world we could use applicant OTP verified phone number/token?
+    this.mydate = Date.now().valueOf();
+    this.connectName = this.mydate.toString();
+    this.indyStatusMessage = 'Looking up connection: ' + this.connectName;
+    console.log('date based connection name: ' + this.connectName);
 
+    try {
+      // // Check if we don't have connection name already
+      // await this.vcxConnectionSvc
+      //   .apiConnectionsIdInviteGet(this.connectName)
+      //   .toPromise()
+      //   .then(invite => {
+      //     console.log('TCL: SignupComponent -> invite -> invite', invite);
+      //     // connection was found
+      //     this.indyStatusMessage = 'Found an invite. Showing QR';
+
+      //     // show existing invite
+      //     this.openModalWithComponent(invite.invitationString);
+      //     // Start poller to see if connection is established.
+      //   })
+      //   .catch(async e => {
+      //     console.error('TCL: SignupComponent -> invite -> e', e);
+      //     const err: HttpErrorResponse = e;
+      //     if (err.status === 404) {
+      //       // I didn't find and existing record.
+      this.indyStatusMessage = 'Creating connection ...';
+
+      await this.vcxConnectionSvc
+        .apiConnectionsIdPost(this.connectName)
+        .toPromise()
+        .then(async conn => {
+          console.log('TCL: SignupComponent -> invite -> conn', conn);
+          // Connection is created
+          this.indyStatusMessage = 'Connection created. Getting invite data...';
+
+
+          // User is created so now we try get the invite code.
+          await this.vcxConnectionSvc
+            .apiConnectionsIdInviteGet(this.connectName)
+            .toPromise()
+            .then(invite => {
+              console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
+              this.openModalWithComponent(invite.invitationString);
+
+              // This is where I need to poll if the connection was accepted
+              this.indyStatusMessage = 'Found an invite. Showing QR';
+
+            })
+            .catch(e => {
+              console.error('TCL: SignupComponent -> invite -> e', e);
+            });
+        })
+        .catch(e => {
+          console.error('TCL: SignupComponent -> invite -> e', e);
+        });
+      // }
+
+
+
+      //     });
+    } catch (error) {
+      console.log('TCL: SignupComponent -> invite -> error', error);
+
+    }
+  }
+
+  onSubmit() {
+    console.warn(this.signupForm.value);
+  }
+
+  openModalWithComponent(data) {
+    const initialState = {
+      title: 'Scan with your Identity Wallet App',
+      invitedata: data
+    };
+    this.bsModalRef = this.modalService.show(ShowqrComponent, { initialState });
+    this.bsModalRef.content.closeBtnName = 'Close';
+  }
 
 }

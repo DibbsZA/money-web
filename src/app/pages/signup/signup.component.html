@@ -10,493 +10,143 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="VignetteOuter">
-              <a href="https://www.oldmutualfinance.co.za/" class="HeaderVignetteInner startoverlay"> <img
-                  src="/assets/images/om-symbol-white.png" alt="" class="header-logo"></a>
+              <a class="HeaderVignetteInner startoverlay"><img src="/assets/safbc.jpg" class="header-logo"></a>
             </div>
             <div class="displaynonemobile nav-btns pull-right pad5 padb5">
               <button class="btn btn-sm btn-success success-dark no-overlay-please">CONTACT US</button>
             </div>
             <div class="navbar-header">
-              <!-- <div class="displaynonedesktop navbar-buttons">
-                <a class="btn btn-xs btn-success success-dark no-overlay-please" data-toggle="modal"
-                  data-target="#contactUsModal" href="./MoneyAccountRegister#">CONTACT US</a>
-              </div> -->
-              <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar">
-                <span class="icon-bar"> </span> <span class="icon-bar"></span>
-              </button> -->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="container navigationhold navigationholdLoanflow">
-      <div class="row">
-        <div class="col-sm-12">
-          <div id="navbar" class="loanflow-nav moneyaccountflow-nav">
-            <!-- <ul class="pagination navbar-pagination">
-              <li class="pagiNext"><a id="workflow_previous_header" href="javascript:Workflow.navActionPrev();"
-                  class="next-prev prev-but">«</a></li>
-              <li><a class="acquisitionflowActionImg current register border-right-zero"
-                  href="javascript:Workflow.navAction(&#39;&#39;);"><span class="navlinkseq">1</span><span
-                    class="navlinktext">Register</span></a></li>
-              <li><a class="acquisitionflowActionImg what-is-money-account border-right-zero"
-                  href="javascript:Workflow.navAction(&#39;next_action=what-is-money-account&#39;);"><span
-                    class="navlinkseq">2</span><span class="navlinktext">What Is Money Account</span></a></li>
-              <li><a class="acquisitionflowActionImg cellphone-verification border-right-zero"
-                  href="javascript:Workflow.navAction(&#39;next_action=cellphone-verification&#39;);"><span
-                    class="navlinkseq">3</span><span class="navlinktext">Cellphone Verification</span></a></li>
-              <li><a class="acquisitionflowActionImg personal-info border-right-zero"
-                  href="javascript:Workflow.navAction(&#39;next_action=personal-info&#39;);"><span
-                    class="navlinkseq">4</span><span class="navlinktext">Personal Info</span></a></li>
-              <li><a class="acquisitionflowActionImg about-you border-right-zero"
-                  href="javascript:Workflow.navAction(&#39;next_action=about-you&#39;);"><span
-                    class="navlinkseq">5</span><span class="navlinktext">About You</span></a></li>
-              <li><a class="acquisitionflowActionImg document-upload border-right-zero"
-                  href="javascript:Workflow.navAction(&#39;next_action=document-upload&#39;);"><span
-                    class="navlinkseq">6</span><span class="navlinktext">Document Upload</span></a></li>
-              <li><a class="acquisitionflowActionImg summary border-right-zero"
-                  href="javascript:Workflow.navAction(&#39;next_action=summary&#39;);"><span
-                    class="navlinkseq">7</span><span class="navlinktext">Summary</span></a></li>
-              <li class="pagiPrev"><a id="workflow_next_header" class="next-prev next-but"
-                  href="javascript:Workflow.navActionNext();">»</a></li>
-            </ul> -->
-          </div>
-        </div>
-      </div>
-    </div>
+
   </nav>
-  <div class="container container-loanflow pad140 padb120">
-    <div>
-      <p>For assistance, please call 0860 000 883.</p>
-    </div>
-    <input type="text" id="workprogress" class="displaynone" name="workprogress" value="14.29">
-    <!-- <form id="acquisitionflow_register" autocomplete="off" method="POST"> -->
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Register</h3>
-      </div>
-      <div class="panel-body pad15">
-        <p>Please complete your details below</p>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group infield">
-              <label for="fidnumber">ID number</label>
-              <input [formControl]="identityNumber" type="number" maxlength="50" class="form-control" value=""
-                placeholder="ID number">
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group infield required">
-              <label for="ftitle">Title</label>
-              <select [formControl]="title" name="register.title.0" class="form-control no-selection" id="ftitle">
-                <option value="">Title</option>
-                <option value="DR">Dr</option>
-                <option value="MR">Mr</option>
-                <option value="MRS">Mrs</option>
-                <option value="MS">Ms</option>
-              </select></div>
-          </div>
+  <div class="container container-loanflow pad80 padb120">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">SAFBC Bank | Register</h3>
         </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group infield required">
-              <label for="ffname">First name(s)</label>
-              <input [formControl]="names" type="text" maxlength="50" class="form-control" id="ffname"
-                name="register.firstName.0" value="" placeholder="First name(s)">
+        <div class="panel-body pad15">
+          <p>Please complete your details below</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group infield">
+                <label for="fidnumber">ID number</label>
+                <input formControlName="identityNumber" type="number" class="form-control" id='fidnumber'
+                  placeholder="ID number" value="identityNumber.value" required minlength="13">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group infield">
+                <label for="ftitle">Title</label>
+                <select formControlName="title" class="form-control no-selection" id="ftitle">
+                  <option value="">Title</option>
+                  <option value="DR">Dr</option>
+                  <option value="MR">Mr</option>
+                  <option value="MRS">Mrs</option>
+                  <option value="MS">Ms</option>
+                </select>
+              </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <div class="form-group infield required">
-              <label for="flname">Surname</label>
-              <input [formControl]="surname" type="text" maxlength="50" class="form-control" id="flname"
-                name="register.lastName.0" value="" placeholder="Surname">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group infield ">
+                <label for="ffname">First name(s)</label>
+                <input formControlName="names" type="text" maxlength="50" class="form-control" id="ffname"
+                  placeholder="First name(s)" required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group infield ">
+                <label for="flname">Surname</label>
+                <input formControlName="surname" type="text" maxlength="50" class="form-control" id="flname"
+                  placeholder="Surname" required>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group infield required">
-              <label for="finitials">Initials</label>
-              <input [formControl]="initials" type="text" maxlength="10" class="form-control" id="finitials"
-                name="register.initials.0" value="" placeholder="Initials">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group infield ">
+                <label for="finitials">Initials</label>
+                <input formControlName="initials" type="text" maxlength="10" class="form-control" id="finitials"
+                  placeholder="Initials">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group infield ">
+                <label for="fcellphone">Cell phone number</label>
+                <input formControlName="cellphone" type="tel" maxlength="10" id="fcellphone" class="form-control"
+                  id="fcellphone" placeholder="Cell phone number" required>
+              </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <div class="form-group infield required">
-              <label for="fcellphone">Cell phone number</label>
-              <input [formControl]="cellphone" type="tel" maxlength="10" id="fcellphone" class="form-control"
-                id="fcellphone" name="register.cellphone.0" value="" placeholder="Cell phone number">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group infield ">
+                <label for="fcountryofbirth">Country of birth</label>
+                <select formControlName='countryOfBirth' required id="fcountryofbirth"
+                  class="form-control no-selection">
+                  <option value="" class="empty_option">Country of birth</option>
+                  <option value="ZAF">South Africa</option>
+                  <option value="ZN">Namibia</option>
+                  <option value="ZM">Zimbabwe</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group infield">
+                <label for="femailaddress">Email Address</label>
+                <input formControlName='email' type="email" maxlength="50" class="form-control" id="femailaddress"
+                  placeholder="Email Address">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group infield required">
-              <label for="fcountryofbirth">Country of birth</label>
-              <select [formControl]='countryOfBirth' id="fcountryofbirth" name="register.countryOfBirth.0"
-                class="form-control no-selection">
-                <option value="" class="empty_option">Country of birth</option>
-                <option value="ZAF">South Africa</option>
-                <option value="ZN">Namibia</option>
-                <option value="242">Afghanistan</option>
-                <option value="243">Aland Islands</option>
-                <option value="33">Albania</option>
-                <option value="34">Algeria</option>
-                <option value="35">American Samoa</option>
-                <option value="36">Andorra</option>
-                <option value="37">Angola</option>
-                <option value="38">Anguilla</option>
-                <option value="39">Antarctica</option>
-                <option value="40">Antigua and Barbuda</option>
-                <option value="41">Argentina</option>
-                <option value="42">Armenia</option>
-                <option value="43">Aruba</option>
-                <option value="24">Australia</option>
-                <option value="44">Austria</option>
-                <option value="45">Azerbaijan</option>
-                <option value="46">Bahamas</option>
-                <option value="47">Bahrain</option>
-                <option value="48">Bangladesh</option>
-                <option value="49">Barbados</option>
-                <option value="50">Belarus</option>
-                <option value="27">Belgium</option>
-                <option value="51">Belize</option>
-                <option value="52">Benin</option>
-                <option value="53">Bermuda</option>
-                <option value="54">Bhutan</option>
-                <option value="55">Bolivia</option>
-                <option value="254">Bonaire</option>
-                <option value="56">Bosnia and Herzegovi</option>
-                <option value="ZB">Botswana</option>
-                <option value="57">Bouvet Island</option>
-                <option value="58">Brazil</option>
-                <option value="59">British Indian Ocean</option>
-                <option value="60">Brunei Darussalam</option>
-                <option value="61">Bulgaria</option>
-                <option value="62">Burkina Faso</option>
-                <option value="63">Burundi</option>
-                <option value="13">California - USA</option>
-                <option value="64">Cambodia</option>
-                <option value="65">Cameroon</option>
-                <option value="11">Canada</option>
-                <option value="66">Cape Verde</option>
-                <option value="67">Cayman Islands</option>
-                <option value="68">Central African Repu</option>
-                <option value="69">Chad</option>
-                <option value="70">Chile</option>
-                <option value="71">China</option>
-                <option value="72">Christmas Island</option>
-                <option value="73">Cocos Keeling Island</option>
-                <option value="74">Columbia</option>
-                <option value="75">Comoros</option>
-                <option value="76">Congo</option>
-                <option value="77">Cook Islands</option>
-                <option value="78">Costa Rica</option>
-                <option value="79">Cote d Ivoire</option>
-                <option value="80">Croatia</option>
-                <option value="81">Cuba</option>
-                <option value="255">Curacao</option>
-                <option value="82">Cyprus</option>
-                <option value="83">Czech Republic</option>
-                <option value="84">Democratic Republic</option>
-                <option value="85">Denmark</option>
-                <option value="86">Djibouti</option>
-                <option value="87">Dominica</option>
-                <option value="88">Dominican Republic</option>
-                <option value="89">East Timor</option>
-                <option value="90">Ecuador</option>
-                <option value="91">Egypt</option>
-                <option value="92">El Salvador</option>
-                <option value="93">Equatorial Guinea</option>
-                <option value="94">Eritrea</option>
-                <option value="95">Estonia</option>
-                <option value="96">Ethiopia</option>
-                <option value="97">Faeroe Islands</option>
-                <option value="98">Falkland Islands</option>
-                <option value="99">Fiji</option>
-                <option value="100">Finland</option>
-                <option value="6">France</option>
-                <option value="244">French Guiana</option>
-                <option value="245">French Polynesia</option>
-                <option value="246">French South.Territ.</option>
-                <option value="101">Gabon</option>
-                <option value="102">Gambia</option>
-                <option value="7">Germany</option>
-                <option value="103">Ghana</option>
-                <option value="104">Gibraltar</option>
-                <option value="12">Great Britain</option>
-                <option value="105">Greece</option>
-                <option value="106">Greenland</option>
-                <option value="107">Grenada</option>
-                <option value="108">Guadelope</option>
-                <option value="109">Guam</option>
-                <option value="110">Guatemala</option>
-                <option value="111">Guernsey</option>
-                <option value="112">Guinea</option>
-                <option value="113">Guinea Bissau</option>
-                <option value="114">Guyana</option>
-                <option value="115">Haiti</option>
-                <option value="116">Heard and McDonald I</option>
-                <option value="117">Holy See</option>
-                <option value="118">Honduras</option>
-                <option value="119">Hong Kong</option>
-                <option value="120">Hungary</option>
-                <option value="121">Iceland</option>
-                <option value="122">India</option>
-                <option value="123">Indonesia</option>
-                <option value="124">Iran</option>
-                <option value="125">Iraq</option>
-                <option value="25">Ireland</option>
-                <option value="126">Isle of Man</option>
-                <option value="16">Israel</option>
-                <option value="14">Italy</option>
-                <option value="127">Jamaica</option>
-                <option value="128">Japan</option>
-                <option value="129">Jersey,C.I.</option>
-                <option value="130">Jordan</option>
-                <option value="131">Kazakhstan</option>
-                <option value="28">Kenya</option>
-                <option value="20">Kingdom Saudi Arabia</option>
-                <option value="132">Kiribati</option>
-                <option value="133">Korea Democratic Rep</option>
-                <option value="134">Korea Republic</option>
-                <option value="252">Kosovo</option>
-                <option value="135">Kuwait</option>
-                <option value="136">Kyrgystan</option>
-                <option value="137">Lao Peoples Democrat</option>
-                <option value="138">Latvia</option>
-                <option value="139">Lebanon</option>
-                <option value="247">Leeward &amp; Windward</option>
-                <option value="ZL">Lesotho</option>
-                <option value="140">Liberia</option>
-                <option value="141">Libyan Arab Jamahiri</option>
-                <option value="142">Liechtenstein</option>
-                <option value="143">Lithuania</option>
-                <option value="144">Luxemborg</option>
-                <option value="145">Macau</option>
-                <option value="146">Macedonia</option>
-                <option value="30">Madagascar</option>
-                <option value="5">Malawi</option>
-                <option value="32">Malaysia</option>
-                <option value="147">Maldives</option>
-                <option value="148">Mali</option>
-                <option value="149">Malta</option>
-                <option value="150">Marshall Islands</option>
-                <option value="151">Martinique</option>
-                <option value="152">Mauritania</option>
-                <option value="29">Mauritius</option>
-                <option value="153">Mayotte</option>
-                <option value="154">Mexico</option>
-                <option value="155">Micronesia</option>
-                <option value="156">Moldova</option>
-                <option value="157">Monaco</option>
-                <option value="158">Mongolia</option>
-                <option value="248">Montenegro</option>
-                <option value="159">Montserrat</option>
-                <option value="160">Morocco</option>
-                <option value="161">Mozambique</option>
-                <option value="162">Myanmar</option>
-                <option value="163">Nauru</option>
-                <option value="164">Nepal</option>
-                <option value="22">Netherlands</option>
-                <option value="166">New Caledonia</option>
-                <option value="17">New Zealand</option>
-                <option value="167">Nicaragua</option>
-                <option value="168">Niger</option>
-                <option value="169">Nigeria</option>
-                <option value="170">Niue</option>
-                <option value="171">Norfolk Island</option>
-                <option value="172">Northern Mariana Isl</option>
-                <option value="173">Norway</option>
-                <option value="174">Oman</option>
-                <option value="175">Pakistan</option>
-                <option value="176">Palau</option>
-                <option value="249">Palestine Territory</option>
-                <option value="177">Panama</option>
-                <option value="178">Panama Canal Zone</option>
-                <option value="179">Papau New Guinea</option>
-                <option value="180">Paraguay</option>
-                <option value="181">Peru</option>
-                <option value="182">Phillipines</option>
-                <option value="183">Pitcairn</option>
-                <option value="184">Poland</option>
-                <option value="185">Portugal</option>
-                <option value="186">Puerto Rico</option>
-                <option value="187">Qatar</option>
-                <option value="188">Reunion</option>
-                <option value="189">Romania</option>
-                <option value="190">Russian Federation</option>
-                <option value="191">Rwanda</option>
-                <option value="257">ST Maarten</option>
-                <option value="253">Saint Barthelemy</option>
-                <option value="192">Samoa</option>
-                <option value="193">San Marino</option>
-                <option value="194">Sao Tome and Princip</option>
-                <option value="195">Senegal</option>
-                <option value="250">Serbia</option>
-                <option value="196">Seychelles</option>
-                <option value="197">Sierra Leone</option>
-                <option value="23">Singapore</option>
-                <option value="198">Slovakia</option>
-                <option value="199">Slovenia</option>
-                <option value="200">Solomon Islands</option>
-                <option value="201">Somalia</option>
-                <option value="202">South Georgia</option>
-                <option value="256">South Sudan</option>
-                <option value="31">Spain</option>
-                <option value="203">Sri Lanka</option>
-                <option value="204">St.Helena</option>
-                <option value="205">St.Kitts and Nevis</option>
-                <option value="206">St.Lucia</option>
-                <option value="207">St.Pierre and Miquel</option>
-                <option value="208">St.Vincent and the G</option>
-                <option value="209">Sudan</option>
-                <option value="210">Suriname</option>
-                <option value="211">Svaldbard and Jan Ma</option>
-                <option value="ZW">Swaziland</option>
-                <option value="212">Sweden</option>
-                <option value="19">Switzerland</option>
-                <option value="213">Syrian Arab Republic</option>
-                <option value="214">Taiwan</option>
-                <option value="215">Tajikistan</option>
-                <option value="26">Tanzania</option>
-                <option value="216">Thailand</option>
-                <option value="251">Timor Leste</option>
-                <option value="217">Togo</option>
-                <option value="218">Tokelau</option>
-                <option value="219">Tonga</option>
-                <option value="220">Trinidad and Tobago</option>
-                <option value="221">Tunisia</option>
-                <option value="222">Turkey</option>
-                <option value="223">Turkmenistan</option>
-                <option value="224">Turks and Caicos Isl</option>
-                <option value="225">Tuvalu</option>
-                <option value="231">USA outlaying Isles</option>
-                <option value="226">Uganda</option>
-                <option value="227">Ukraine</option>
-                <option value="228">United Arab Emirates</option>
-                <option value="229">United Kingdom</option>
-                <option value="18">United States</option>
-                <option value="230">Uraguay</option>
-                <option value="232">Uzbekistan</option>
-                <option value="233">Vanuatu</option>
-                <option value="9">Venda</option>
-                <option value="234">Venezuela</option>
-                <option value="235">Vietnam</option>
-                <option value="236">Virgin Islands Briti</option>
-                <option value="237">Virgin Islands USA</option>
-                <option value="238">Wallis and Futuna Is</option>
-                <option value="239">Western Sahara</option>
-                <option value="240">Yemen</option>
-                <option value="241">Yugoslavia</option>
-                <option value="21">Zambia</option>
-                <option value="ZM">Zimbabwe</option>
-              </select>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group infield">
+                <label for="faddress">Address</label>
+                <textarea formControlName='address' type="text" class="form-control" id="faddress"
+                  placeholder="Address"></textarea>
+              </div>
             </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group infield required">
-              <label for="femailaddress">Email Address</label>
-              <input [formControl]='email' type="email" maxlength="50" class="form-control" id="femailaddress"
-                name="register.emailAddress.0" value="" placeholder="Email Address">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group infield required">
-              <label for="faddress">Address</label>
-              <textarea [formControl]='address' type="text" class="form-control" id="faddress" name="register.address.0"
-                value="" placeholder="Address"></textarea>
-            </div>
-          </div>
-          <div class="col-sm-6">
+            <div class="col-sm-6">
+              Form status: {{ signupForm.status }}<br />
 
+              <span *ngIf="signupForm.valid">Form data: {{ signupForm.value | json }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <input [formControl]="dateOfBirth" type="hidden" id="fdateOfBirth" readonly>
-    <input [formControl]="nationality" type="hidden" id="fnationality" readonly>
-    <input [formControl]="sex" type="hidden" id="fsex" readonly>
+      <input formControlName="dateOfBirth" type="hidden" id="fdateOfBirth">
+      <input formControlName="nationality" type="hidden" id="fnationality">
+      <input formControlName="sex" type="hidden" id="fsex">
 
-    <div class="loanflow-buttons icon-buttons">
-      <button id="wf_do_next" class="btn success-light" name="wf_do_next">NEXT</button>
-      <a id="workflow_exit" href="./MoneyAccountRegister#exitreason-modal" role="button"
-        class="btn success-light btn-warning no-overlay-please" data-toggle="modal">FINISH LATER</a>
-    </div>
-    <div class="modal fade om-modal" id="exitreason-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Finish Later</h4>
-          </div>
-          <div class="modal-body">
-            <p>Are you sure you want to finish later?</p>
-            <input type="button" class="btn btn-success success-light" value="YES"
-              onclick="location.href=&#39;/money-account/sign-up/exit-workflow&#39;">
-            <input type="button" class="btn btn-success success-light no-overlay-please" data-dismiss="modal"
-              aria-label="Close" value="NO">
-          </div>
-        </div>
+      <div class="loanflow-buttons icon-buttons">
+        <button (click)="invite()" class="btn success-light warning-light">CONNECT WITH <img
+            src="../../../assets/favicon.png" style="height: 25px"> Sovrin</button>
+        <button type="submit" [disabled]="!signupForm.valid" class="btn success-light">NEXT</button>
+        <span *ngIf="indyLoading">Indy status: {{ indyStatusMessage }}</span>
       </div>
-    </div>
-    <!-- </form> -->
+    </form>
   </div>
   <div class="bodyfooter small-footer font11">
     <div class="breakline"></div>
     <div class="container containSitemap">
-      <div class="livechatContainer"></div>
       <div class="VignetteOuter">
-        <div class="FooterVignetteInner"></div>
+        <div class="FooterVignetteInner"><img src="/assets/safbc.jpg" alt=""></div>
       </div>
       <div class="copyright">
         <div class="container">
           <div class="copyrightinner">
-            <p>Old Mutual Finance (RF) (Pty) Ltd - NCR Reg No: NCRCP 35 | FSP Reg No: 25494 - © 2017 <br>
+            <p>This page was built purely for demonstration purposes. It merely represents the potential functionality
+              that SSI technologies could offer to the consumer<br>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <button id="sessionExtendModalButton" class="btn btn-primary displaynone" data-toggle="modal"
-    data-target="#sessionExtendModal"></button>
-  <div class="modal fade om-modal" id="sessionExtendModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content modelStyle">
-        <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"
-            onclick="HeartBeat.killSession()"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel">Session Expiring</h4>
-        </div>
-        <div class="modal-body">Your Session Is About To Expire. Would you like to stay on this page?</div>
-        <div class="modal-footer"> <button type="button" class="btn btn-primary" data-dismiss="modal"
-            onclick="HeartBeat.start()">Stay On Page</button> <button type="button" class="btn btn-default"
-            data-dismiss="modal" onclick="HeartBeat.killSession()">Close</button> </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade om-modal" id="contactUsModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content modelStyle">
-        <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-              aria-hidden="true">×</span></button>
-          <h4 class="modal-title">Contact Us</h4>
-        </div>
-        <div class="modal-body contactDetails">
-          <h2 class="omblack pad10">MONEY ACCOUNT SALES: 0860 000 883</h2>
-          <p>Monday to Friday: 08h00 to 17h00<br>Saturday: 08h00 to 13h00<br>Closed on Sundays and Public Holidays</p>
-          <h2 class="omblack pad15">SERVICE AND SUPPORT 0860 222 252 (Option 2)</h2>
-          <p>Monday to Friday: 07h30 to 18h00<br>Saturday: 08h00 to 14h00<br>Closed on Sundays and Public Holidays</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
 </div>
