@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Connection, Credential, CredentialDef, Message, Proof } from 'src/app/models/models';
-import { MessageService } from 'src/app/services/message.service';
+import { Connection, Proof } from 'src/app/models/models';
 import { ConnectionService } from 'src/app/services/connection.service';
 import { CredentialsService } from 'src/app/services/credentials.service';
 import { CredentialDefinitionsService } from 'src/app/services/credential-definitions.service';
@@ -47,7 +46,7 @@ export class ProofsComponent implements OnInit {
    * @author G de Beer
    * @date 2019-08-15
    */
-  public getCredentials(connectionId: string) {
+  public getProofsId(connectionId: string) {
     this.proofData$ = this.vcxProofSvc.apiProofsIdGet(connectionId);
   }
 

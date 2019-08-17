@@ -19,7 +19,7 @@
                   class="form-control" [value]="connectionId">
               </div>
               <div class="loanflow-buttons icon-buttons">
-                <button (click)="getCredentials()" id="wf_do_next" class="btn success-light btn-warning"
+                <button (click)="getProofsId(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
                   name="wf_do_next">Run</button>
               </div>
               <pre *ngIf="connectionsData$">
