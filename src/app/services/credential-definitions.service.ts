@@ -61,7 +61,7 @@ export class CredentialDefinitionsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -77,9 +77,9 @@ export class CredentialDefinitionsService {
     return this.httpClient.get<Array<CredentialDef>>(`${this.basePath}/api/credential-defs`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -108,7 +108,7 @@ export class CredentialDefinitionsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -124,9 +124,9 @@ export class CredentialDefinitionsService {
     return this.httpClient.delete<any>(`${this.basePath}/api/credential-defs/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -155,7 +155,7 @@ export class CredentialDefinitionsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -171,9 +171,9 @@ export class CredentialDefinitionsService {
     return this.httpClient.get<CredentialDef>(`${this.basePath}/api/credential-defs/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -209,7 +209,7 @@ export class CredentialDefinitionsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -230,9 +230,9 @@ export class CredentialDefinitionsService {
       schemaId,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }

@@ -63,7 +63,7 @@ export class MessageService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -79,9 +79,9 @@ export class MessageService {
     return this.httpClient.get<Array<Message>>(`${this.basePath}/api/connections/${encodeURIComponent(String(id))}/messages`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -116,7 +116,7 @@ export class MessageService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -137,9 +137,9 @@ export class MessageService {
       msg,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -176,7 +176,7 @@ export class MessageService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -197,9 +197,9 @@ export class MessageService {
       uids,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }

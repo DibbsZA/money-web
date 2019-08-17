@@ -16,3 +16,24 @@ export interface Invitation {
    */
   invitationString?: string;
 }
+
+export interface InvitationString {
+  id: string;
+  s: {
+    d: string,
+    dp: {
+      d: string,
+      k: string,
+      s: string
+    },
+    l: string, // logo image
+    n: string,
+    publicDID: string,
+    v: string
+  };
+  sa: object;
+  sc: string;
+  sm: string;
+  t: string;
+  threadId: null;
+}

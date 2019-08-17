@@ -10,7 +10,8 @@ import { BASE_PATH } from '../variables';
 })
 export class ProofsService {
 
-  protected basePath = 'https://api.oldmutual.myid.africa';
+  // protected basePath = 'https://api.oldmutual.myid.africa';
+  basePath: string;
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -48,8 +49,11 @@ export class ProofsService {
    * @param reportProgress flag to report request and response progress.
    */
   public apiConnectionsIdProofsPost(id: string, attributes: Array<string>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+  // tslint:disable-next-line: max-line-length
   public apiConnectionsIdProofsPost(id: string, attributes: Array<string>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+  // tslint:disable-next-line: max-line-length
   public apiConnectionsIdProofsPost(id: string, attributes: Array<string>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+  // tslint:disable-next-line: max-line-length
   public apiConnectionsIdProofsPost(id: string, attributes: Array<string>, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
     if (id === null || id === undefined) {
@@ -68,7 +72,7 @@ export class ProofsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -89,9 +93,9 @@ export class ProofsService {
       attributes,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -115,7 +119,7 @@ export class ProofsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -131,9 +135,9 @@ export class ProofsService {
     return this.httpClient.get<Array<Proof>>(`${this.basePath}/api/proofs`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -162,7 +166,7 @@ export class ProofsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -178,9 +182,9 @@ export class ProofsService {
     return this.httpClient.delete<any>(`${this.basePath}/api/proofs/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -209,7 +213,7 @@ export class ProofsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -225,9 +229,9 @@ export class ProofsService {
     return this.httpClient.get<Proof>(`${this.basePath}/api/proofs/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }

@@ -82,7 +82,7 @@ export class CredentialsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -104,9 +104,9 @@ export class CredentialsService {
       request,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -130,7 +130,7 @@ export class CredentialsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -146,9 +146,9 @@ export class CredentialsService {
     return this.httpClient.get<Array<Credential>>(`${this.basePath}/api/credentials`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -177,7 +177,7 @@ export class CredentialsService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
+    const httpHeaderAccepts: string[] = [
       'application/json',
       'application/xml'
     ];
@@ -193,9 +193,9 @@ export class CredentialsService {
     return this.httpClient.delete<any>(`${this.basePath}/api/credentials/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
