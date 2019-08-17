@@ -6,6 +6,7 @@ import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
 import { ConnectionService } from 'src/app/services/connection.service';
 import * as faker from 'faker';
 import { HttpErrorResponse } from '@angular/common/http';
+import { InvitationString } from 'src/app/models/models';
 
 @Component({
   selector: 'app-signup',
@@ -60,6 +61,13 @@ export class SignupComponent implements OnInit {
     // In real world we could use applicant OTP verified phone number/token?
     this.mydate = Date.now().valueOf();
     this.connectName = this.mydate.toString();
+
+    const arr = new Int32Array(1);
+    crypto.getRandomValues<Int32Array>(arr);
+    const token = arr[0].toString();
+    console.log('TCL: SignupComponent -> invite -> token', token);
+
+
     this.indyStatusMessage = 'Looking up connection: ' + this.connectName;
     console.log('date based connection name: ' + this.connectName);
 
@@ -98,8 +106,11 @@ export class SignupComponent implements OnInit {
             .apiConnectionsIdInviteGet(this.connectName)
             .toPromise()
             .then(invite => {
-              console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
-              this.openModalWithComponent(invite.invitationString);
+              const inv: InvitationString = JSON.parse(invite.invitationString);
+              inv.s.l = 'https://pbs.twimg.com/profile_images/1036552935658926081/bfjI50Q1_normal.jpg';
+              inv.s.n = 'SAFBCBank';
+              console.log('TCL: TesterComponent -> fillWithIndy -> inv', JSON.stringify(inv));
+              this.openModalWithComponent(JSON.stringify(inv));
 
               // This is where I need to poll if the connection was accepted
               this.indyStatusMessage = 'Found an invite. Showing QR';
