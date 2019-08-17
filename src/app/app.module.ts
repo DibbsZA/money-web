@@ -27,9 +27,10 @@ import { ShowqrComponent } from './components/showqr/showqr.component';
 import { TesterComponent } from './pages/tester/tester.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { CredentialsComponent } from './pages/credentials/credentials.component';
+import { ProofsComponent } from './pages/proofs/proofs.component';
 
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
-import { CredentialsComponent } from './pages/credentials/credentials.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CredentialsComponent } from './pages/credentials/credentials.component'
     ShowqrComponent,
     TesterComponent,
     MessagesComponent,
-    CredentialsComponent
+    CredentialsComponent,
+    ProofsComponent
   ],
   imports: [
     BrowserModule,

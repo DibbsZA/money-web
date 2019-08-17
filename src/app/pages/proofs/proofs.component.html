@@ -1,0 +1,42 @@
+<div id="body_acquisitionflow_register">
+
+  <div id="overlay-temp" style="display: none;">
+    <!-- <div id="overlay-temp-content"></div> -->
+    <!-- <div id="overlay-temp-logo">Loading... Please Wait...</div> -->
+  </div>
+  <div class="container container-loanflow pad140 padb120">
+    <form id="acquisitionflow_register">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Proofs</h3>
+        </div>
+        <div class="panel-body pad15">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group infield">
+                <label>connectionId</label>
+                <input [(ngModel)]="connectionId" [ngModelOptions]="{standalone: true}" type="text" maxlength="50"
+                  class="form-control" [value]="connectionId">
+              </div>
+              <div class="loanflow-buttons icon-buttons">
+                <button (click)="getCredentials()" id="wf_do_next" class="btn success-light btn-warning"
+                  name="wf_do_next">Run</button>
+              </div>
+              <pre *ngIf="connectionsData$">
+{{ connectionsData$ | async | json }}
+</pre>
+            </div>
+            <div class="col-sm-8">
+              <pre *ngIf="proofsData$">
+{{ proofsData$ | async | json }}
+</pre>
+              <pre *ngIf="proofData$">
+{{ proofData$ | async | json }}
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
