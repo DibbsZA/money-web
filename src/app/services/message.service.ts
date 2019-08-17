@@ -1,26 +1,30 @@
 import { Injectable, Optional, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
+import { Message } from 'src/app/models/models';
 import { Configuration } from '../configuration';
 import { BASE_PATH } from '../variables';
-import { Message } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
 
-  protected basePath = 'https://api.oldmutual.myid.africa';
+  basePath: string;
   public defaultHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+  public configuration: Configuration;
 
-  constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    // @Optional() configuration: Configuration
+  ) {
     if (basePath) {
       this.basePath = basePath;
     }
-    if (configuration) {
-      this.configuration = configuration;
-      this.basePath = basePath || configuration.basePath || this.basePath;
+    if (!this.configuration) {
+      this.configuration = new Configuration();
+      this.basePath = basePath || this.configuration.basePath || this.basePath;
     }
   }
 

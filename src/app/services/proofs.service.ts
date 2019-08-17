@@ -1,9 +1,11 @@
 import { Injectable, Optional, Inject } from '@angular/core';
-import { Proof } from '../models/proof.model';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
+import { Proof } from 'src/app/models/models';
 import { Configuration } from '../configuration';
 import { BASE_PATH } from '../variables';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +15,19 @@ export class ProofsService {
   // protected basePath = 'https://api.oldmutual.myid.africa';
   basePath: string;
   public defaultHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+  public configuration: Configuration;
 
-  constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    // @Optional() configuration: Configuration
+  ) {
     if (basePath) {
       this.basePath = basePath;
     }
-    if (configuration) {
-      this.configuration = configuration;
-      this.basePath = basePath || configuration.basePath || this.basePath;
+    if (!this.configuration) {
+      this.configuration = new Configuration();
+      this.basePath = basePath || this.configuration.basePath || this.basePath;
     }
   }
 
@@ -89,7 +95,7 @@ export class ProofsService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.post<any>(`${this.basePath}/api/connections/${encodeURIComponent(String(id))}/proofs`,
+    return this.httpClient.post<any>(`${this.configuration.basePath}/api/connections/${encodeURIComponent(String(id))}/proofs`,
       attributes,
       {
         withCredentials: this.configuration.withCredentials,
@@ -132,7 +138,7 @@ export class ProofsService {
     const consumes: string[] = [
     ];
 
-    return this.httpClient.get<Array<Proof>>(`${this.basePath}/api/proofs`,
+    return this.httpClient.get<Array<Proof>>(`${this.configuration.basePath}/api/proofs`,
       {
         withCredentials: this.configuration.withCredentials,
         headers,
@@ -179,7 +185,7 @@ export class ProofsService {
     const consumes: string[] = [
     ];
 
-    return this.httpClient.delete<any>(`${this.basePath}/api/proofs/${encodeURIComponent(String(id))}`,
+    return this.httpClient.delete<any>(`${this.configuration.basePath}/api/proofs/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
         headers,
@@ -226,7 +232,7 @@ export class ProofsService {
     const consumes: string[] = [
     ];
 
-    return this.httpClient.get<Proof>(`${this.basePath}/api/proofs/${encodeURIComponent(String(id))}`,
+    return this.httpClient.get<Proof>(`${this.configuration.basePath}/api/proofs/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
         headers,

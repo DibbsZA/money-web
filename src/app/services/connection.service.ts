@@ -1,40 +1,31 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import {
-  HttpClient, HttpHeaders, HttpParams,
-  HttpResponse, HttpEvent
-} from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
-
-
-import { Connection } from '../models/connection.model';
-import { Invitation } from '../models/invitation.model';
-import { ResourceId } from '../models/resourceId.model';
-import { Solution } from '../models/solution.model';
-
-import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
-import { Configuration } from '../configuration';
+import { Injectable, Optional, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpResponse, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
+import { Connection, Solution, Invitation, ResourceId } from 'src/app/models/models';
+import { Configuration } from '../configuration';
+import { BASE_PATH } from '../variables';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectionService {
 
-  protected basePath = 'https://api.oldmutual.myid.africa';
+  basePath: string;
   public defaultHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+  public configuration: Configuration;
 
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    // @Optional() configuration: Configuration
   ) {
     if (basePath) {
       this.basePath = basePath;
     }
-    if (configuration) {
-      this.configuration = configuration;
-      this.basePath = basePath || configuration.basePath || this.basePath;
+    if (!this.configuration) {
+      this.configuration = new Configuration();
+      this.basePath = basePath || this.configuration.basePath || this.basePath;
     }
   }
 

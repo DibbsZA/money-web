@@ -1,8 +1,7 @@
 import { Injectable, Optional, Inject } from '@angular/core';
-import { Schema } from '../models/schema.model';
-import { CreateSchema } from '../models/createSchema.model';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
+import { Schema, CreateSchema } from 'src/app/models/models';
 import { Configuration } from '../configuration';
 import { BASE_PATH } from '../variables';
 
@@ -11,17 +10,21 @@ import { BASE_PATH } from '../variables';
 })
 export class SchemaService {
 
-  protected basePath = 'https://api.oldmutual.myid.africa';
+  basePath: string;
   public defaultHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+  public configuration: Configuration;
 
-  constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    // @Optional() configuration: Configuration
+  ) {
     if (basePath) {
       this.basePath = basePath;
     }
-    if (configuration) {
-      this.configuration = configuration;
-      this.basePath = basePath || configuration.basePath || this.basePath;
+    if (!this.configuration) {
+      this.configuration = new Configuration();
+      this.basePath = basePath || this.configuration.basePath || this.basePath;
     }
   }
 
