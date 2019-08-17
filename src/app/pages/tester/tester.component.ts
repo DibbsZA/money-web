@@ -163,6 +163,7 @@ export class TesterComponent implements OnInit {
 
     this.connectionData = this.load$.pipe(
       switchMap(_ => timer(0, 1000).pipe(
+        // tslint:disable-next-line: no-shadowed-variable
         concatMap(_ => connection$),
         map((response: Connection) => response),
         tap(x => {
