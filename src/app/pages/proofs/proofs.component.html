@@ -19,20 +19,34 @@
                   class="form-control" [value]="connectionId">
               </div>
               <div class="loanflow-buttons icon-buttons">
-                <button (click)="getProofsId(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
-                  name="wf_do_next">Run</button>
+                <!-- <button (click)="getProofsId(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
+                  name="wf_do_next">Get Proofs</button> &nbsp; -->
+                <button (click)="sendProofRequest(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
+                  name="wf_do_next">Request Email from: {{ connectionId }} </button>
               </div>
-              <pre *ngIf="connectionsData$">
-{{ connectionsData$ | async | json }}
+              <h5>Select Connection</h5>
+              <accordion>
+                <accordion-group *ngFor="let connection of connectionsData$ | async" heading='{{connection.id}}'
+                  (click)="selectId(connection.id)">
+                  <pre>
+{{ connection | json }}
 </pre>
+                </accordion-group>
+              </accordion>
             </div>
             <div class="col-sm-8">
-              <pre *ngIf="proofsData$">
-{{ proofsData$ | async | json }}
+              <h5>Proofs for Connection: {{connectionId}} </h5>
+              <accordion>
+                <accordion-group *ngFor="let proof of proofsData$ | async" heading='{{proof.id}}' [isOpen]="true">
+                  <pre>
+{{ proof | json }}
 </pre>
+                </accordion-group>
+              </accordion>
               <pre *ngIf="proofData$">
 {{ proofData$ | async | json }}
 </pre>
+              {{ proofResult }}
             </div>
           </div>
         </div>

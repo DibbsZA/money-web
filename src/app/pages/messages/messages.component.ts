@@ -35,7 +35,6 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.connectionId = 'NewMusk';
     this.getConnections();
   }
 
@@ -43,13 +42,18 @@ export class MessagesComponent implements OnInit {
    * getConnections
    */
   public getConnections() {
-    this.connectionsData$ = this.vcxConnectionSvc.apiConnectionsGet();
+    this.connectionsData$ = this.vcxConnectionSvc.connectionsGet();
+  }
+
+  public selectId(id: string) {
+    this.connectionId = id;
+    this.getMessagesById(id);
   }
 
   /**
    * getMessages
    */
   public getMessagesById(connectionId: string) {
-    this.messagesData$ = this.vcxMessageSvc.apiConnectionsIdMessagesGet(connectionId);
+    this.messagesData$ = this.vcxMessageSvc.messagesGet(connectionId);
   }
 }

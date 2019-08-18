@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { SchemaService } from 'src/app/services/schema.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { Observable, timer, BehaviorSubject } from 'rxjs';
-import { map, tap, take, concatMap, merge, switchMap } from 'rxjs/operators';
+import { concatMap, map, merge, switchMap, tap, delay, skip } from 'rxjs/operators';
+import { concat, of, Observable, BehaviorSubject, timer } from 'rxjs';
 import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
 import { FormControl } from '@angular/forms';
 import { ConnectionService } from 'src/app/services/connection.service';
+import { GlobalEventService } from 'src/app/services/global-event.service';
+import { CredentialsService } from 'src/app/services/credentials.service';
+import { ProofsService } from 'src/app/services/proofs.service';
 
 import * as faker from 'faker';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Connection } from 'src/app/models/connection.model';
+import { CreateProof } from 'src/app/models/models';
 
 @Component({
   selector: 'app-tester',
@@ -32,16 +36,26 @@ export class TesterComponent implements OnInit {
   totalItems = 15;
   currentPage = 4;
 
-  connectionsData: Observable<Connection[]>;
-  connectionData: Observable<Connection>;
+  connectionsData$: Observable<Connection[]>;
+  connectionData$: Observable<Connection>;
   load$ = new BehaviorSubject('');
+  connectName: any;
+  pollCount = 0;
+  connectionEstablished: boolean;
+
+
 
 
   constructor(
     private vcxSchemaSvc: SchemaService,
     private vcxConnectionSvc: ConnectionService,
-    private modalService: BsModalService
-  ) { }
+    private vcxCredSvc: CredentialsService,
+    private vcxProofSvc: ProofsService,
+    private modalService: BsModalService,
+    private eventSvc: GlobalEventService,
+  ) {
+
+  }
 
   ngOnInit() {
   }
@@ -49,58 +63,46 @@ export class TesterComponent implements OnInit {
   async fillWithIndy() {
 
     // 1st Generate random name for new connection for user
-    // In real world we could use applicant OTP verified phone number?
-    const connectName = faker.random.uuid();
-    console.log('random connection name: ' + connectName);
+    // In real world we could use applicant OTP verified phone number/token?
+    this.mydate = Date.now().valueOf();
+    this.connectName = this.mydate.toString();
+
+    const arr = new Int32Array(1);
+    crypto.getRandomValues<Int32Array>(arr);
+    const token = arr[0].toString();
+    console.log('TCL: SignupComponent -> invite -> token', token);
 
     // Check if we don't have connection name already
     try {
+
       await this.vcxConnectionSvc
-        .apiConnectionsIdInviteGet(connectName)
+        .connectionCreate(this.connectName)
         .toPromise()
-        .then(invite => {
-          // The user does exist so show the QR again.
-          console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
-          this.openModalWithComponent(invite.invitationString);
+        .then(async x => {
+          console.log('TCL: TesterComponent -> fillWithIndy -> x', x);
+
+          // User is created so now we try get the invite code
+          await this.vcxConnectionSvc
+            .connectionInvitationGet(this.connectName)
+            .toPromise()
+            .then(invite => {
+              console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
+              this.openModalWithComponent(invite.invitationString);
+
+            })
+            .catch();
 
         })
+        // tslint:disable-next-line: no-shadowed-variable
         .catch(async e => {
           console.log('TCL: TesterComponent -> fillWithIndy -> error', e);
+          // tslint:disable-next-line: no-shadowed-variable
           const error: HttpErrorResponse = e;
           if (error.status === 404) {
-            // The user does not exist so go ahead an create it!
-            await this.vcxConnectionSvc
-              .apiConnectionsIdPost(connectName)
-              .toPromise()
-              .then(async x => {
-                console.log('TCL: TesterComponent -> fillWithIndy -> x', x);
 
-                // User is created so now we try get the invite code again.
-                await this.vcxConnectionSvc
-                  .apiConnectionsIdInviteGet(connectName)
-                  .toPromise()
-                  .then(invite => {
-                    console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
-                    this.openModalWithComponent(invite.invitationString);
-
-                  })
-                  .catch();
-
-              })
-              // tslint:disable-next-line: no-shadowed-variable
-              .catch(async e => {
-                console.log('TCL: TesterComponent -> fillWithIndy -> error', e);
-                // tslint:disable-next-line: no-shadowed-variable
-                const error: HttpErrorResponse = e;
-                if (error.status === 404) {
-
-                }
-              });
           }
+        });
 
-        })
-        // .subscribe()
-        ;
     } catch (error) {
 
 
@@ -122,29 +124,21 @@ export class TesterComponent implements OnInit {
   }
 
   public getSchema() {
-    this.schemaData = this.vcxSchemaSvc.apiSchemasGet();
-    this.connectionsData = this.vcxConnectionSvc.apiConnectionsGet();
+    this.schemaData = this.vcxSchemaSvc.schemasGet();
+    this.connectionsData$ = this.vcxConnectionSvc.connectionsGet();
   }
 
   public async addConnection() {
-    const connectName = faker.random.uuid();
-    console.log('random connection name: ' + connectName);
-    await this.vcxConnectionSvc
-      .apiConnectionsIdPost(connectName)
+    this.mydate = Date.now().valueOf();
+    this.connectName = this.mydate.toString();
+    console.log('random connection name: ' + this.connectName);
+    return await this.vcxConnectionSvc
+      .connectionCreate(this.connectName)
       .toPromise()
       .then(async connResult => {
         console.log('TCL: TesterComponent -> fillWithIndy -> connResult', connResult);
 
-        // User is created so now we try get the invite code again.
-        // await this.vcxConnectionSvc
-        //   .apiConnectionsIdInviteGet(connectName)
-        //   .toPromise()
-        //   .then(invite => {
-        //     console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
-        //     this.openModalWithComponent(invite.invitationString);
-
-        //   })
-        //   .catch();
+        return connResult;
 
       })
       // tslint:disable-next-line: no-shadowed-variable
@@ -152,6 +146,7 @@ export class TesterComponent implements OnInit {
         console.log('TCL: TesterComponent -> fillWithIndy -> error', e);
         // tslint:disable-next-line: no-shadowed-variable
         const error: HttpErrorResponse = e;
+        return e;
       });
   }
 
@@ -159,35 +154,78 @@ export class TesterComponent implements OnInit {
    * pollConnectionEstablished
    */
   public async pollConnectionEstablished(id) {
-    const connection$ = this.vcxConnectionSvc.apiConnectionsIdGet(id);
+    this.pollCount = 0;
+    const connection$ = this.vcxConnectionSvc.connectionGet(id);
 
-    this.connectionData = this.load$.pipe(
-      switchMap(_ => timer(0, 1000).pipe(
-        // tslint:disable-next-line: no-shadowed-variable
-        concatMap(_ => connection$),
-        map((response: Connection) => response),
-        tap(x => {
-          if (x.state === 4) {   // State has switched to connected
-            this.load$.unsubscribe();  // stop polling
-            // TODO: Send proof request
-          }
-        })
-      )
-      )
+    let whenToRefresh$ = of('').pipe(
+      delay(5000),
+      tap(_ => {
+        if (this.connectionEstablished) {
+          this.load$.unsubscribe();
+          whenToRefresh$ = null;
+          console.log('stop polling');
+        } else {
+          this.load$.next('');
+        }
+
+      }),
+      skip(1),
     );
+
+    // User is created so now we try get the invite code
+    await this.vcxConnectionSvc
+      .connectionInvitationGet(id)
+      .toPromise()
+      .then(invite => {
+        console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
+        this.openModalWithComponent(invite.invitationString);
+
+      })
+      .catch();
+
+    const poll$ = concat(connection$, whenToRefresh$);
+
+    this.connectionData$ = this.load$.pipe(
+      concatMap(_ => poll$),
+      map((response: Connection) => {
+        this.pollCount++;
+        if (response.state === 4) {
+          this.connectionEstablished = true;
+          this.eventSvc.announceEmmiter$.emit({ connectionEstablished: true });
+          // now we can request credentials proof
+          this.sendCredentialRequest(id);
+        }
+        return response;
+      }),
+    );
+
   }
 
   public async getConnectionId(id: string) {
-    this.connectionData = this.vcxConnectionSvc.apiConnectionsIdGet(id);
+    this.connectionData$ = this.vcxConnectionSvc.connectionGet(id);
+  }
+
+  public async sendCredentialRequest(id) {
+    const req: CreateProof = {
+      attributes: ['email'],
+      name: 'Email'
+    };
+
+    await this.vcxProofSvc.proofRequest(req, id)
+      .toPromise()
+      .then(r => {
+        console.log('TCL: TesterComponent -> sendCredentialRequest -> r', r);
+
+      })
+      .catch(e => {
+        console.log('TCL: TesterComponent -> sendCredentialRequest -> e', e);
+
+      });
   }
 
   openModalWithComponent(data) {
     const initialState = {
-      list: [
-        'Open a modal with component',
-        'Pass your data',
-      ],
-      title: 'Modal with component',
+      title: 'Scan with ID App',
       invitedata: data
     };
     this.bsModalRef = this.modalService.show(ShowqrComponent, { initialState });

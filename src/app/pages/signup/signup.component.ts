@@ -93,7 +93,7 @@ export class SignupComponent implements OnInit {
       this.indyStatusMessage = 'Creating connection ...';
 
       await this.vcxConnectionSvc
-        .apiConnectionsIdPost(this.connectName)
+        .connectionCreate(this.connectName)
         .toPromise()
         .then(async conn => {
           console.log('TCL: SignupComponent -> invite -> conn', conn);
@@ -103,7 +103,7 @@ export class SignupComponent implements OnInit {
 
           // User is created so now we try get the invite code.
           await this.vcxConnectionSvc
-            .apiConnectionsIdInviteGet(this.connectName)
+            .connectionInvitationGet(this.connectName)
             .toPromise()
             .then(invite => {
               const inv: InvitationString = JSON.parse(invite.invitationString);

@@ -15,18 +15,33 @@
             <div class="col-sm-4">
               <div class="form-group infield">
                 <label>connectionId</label>
-                <input [(ngModel)]="connectionId" type="text" maxlength="50" class="form-control"
-                  [value]="connectionId">
+                <input [(ngModel)]="connectionId" type="text" maxlength="50" class="form-control" [value]="connectionId"
+                  [ngModelOptions]="{standalone: true}">
               </div>
               <div class="loanflow-buttons icon-buttons">
                 <button (click)="getMessagesById(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
                   name="wf_do_next">Run</button>
               </div>
+              <h5>List of connections</h5>
+              <accordion>
+                <accordion-group *ngFor="let connection of connectionsData$ | async" heading='{{connection.id}}'
+                  (click)="selectId(connection.id)">
+                  <pre>
+{{ connection | json }}
+</pre>
+                </accordion-group>
+              </accordion>
             </div>
             <div class="col-sm-8">
-              <pre *ngIf="messagesData$">
-{{ messagesData$ | async | json }}
+              <h5>List of messages for {{ connectionId }}</h5>
+              <accordion>
+                <accordion-group *ngFor="let message of messagesData$ | async" heading='{{message.type}}'
+                  [isOpen]="true">
+                  <pre>
+{{ message | json }}
 </pre>
+                </accordion-group>
+              </accordion>
               <pre *ngIf="messageData$">
 {{ messageData$ | async | json }}
 </pre>

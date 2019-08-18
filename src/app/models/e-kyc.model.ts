@@ -1,3 +1,9 @@
+
+/**
+ * @description Schema of eKYC credential
+ * @author G de Beer
+ * @date 2019-08-19
+ */
 export interface EKyc {
   /**
    * @description Full Surname of person

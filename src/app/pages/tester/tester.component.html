@@ -33,24 +33,34 @@
 <!-- <div class="container"> -->
 <div class="row">
   <div class="col-6">
-    <h3>Schemas</h3>
-    <pre *ngIf="schemaData">
-    {{ schemaData | async | json }}
-    </pre>
+    <h5>List of Schema</h5>
+    <accordion>
+      <accordion-group *ngFor="let schema of schemaData | async" heading='{{schema.id}}'>
+        <pre>
+{{ schema | json }}
+</pre>
+      </accordion-group>
+    </accordion>
   </div>
   <div class="col-6">
     <h3>Connections</h3>
     <button type="button" (click)='addConnection()' class="btn btn-primary">
       Add random connection
     </button>
-    <button type="button" (click)='getConnectionId("77601f66-fdf8-4ec4-9b82-6e14772daeb0")' class="btn btn-secondary">
-      Poll ID
+    <button type="button" (click)='pollConnectionEstablished("1566033379060")' class="btn btn-secondary">
+      Poll ID 1566033379060
     </button>
-    <pre *ngIf="connectionsData">
-    {{ connectionsData | async | json }}
-    </pre>
-    <pre *ngIf="connectionData">
-    {{ connectionData | async | json }}
+    &nbsp; Poll Count: {{ pollCount }}
+    <h5>List of connections</h5>
+    <accordion>
+      <accordion-group *ngFor="let connection of connectionsData$ | async" heading='{{connection.id}}'>
+        <pre>
+{{ connection | json }}
+</pre>
+      </accordion-group>
+    </accordion>
+    <pre *ngIf="connectionData$">
+    {{ connectionData$ | async | json }}
     </pre>
   </div>
 </div>
