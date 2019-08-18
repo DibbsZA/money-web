@@ -1,6 +1,7 @@
 
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule, NgControl } from '@angular/forms';
 
@@ -17,6 +18,7 @@ import { Configuration } from './configuration';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -31,6 +33,7 @@ import { CredentialsComponent } from './pages/credentials/credentials.component'
 import { ProofsComponent } from './pages/proofs/proofs.component';
 
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
+import { AccountConfirmedComponent } from './pages/account-confirmed/account-confirmed.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
     TesterComponent,
     MessagesComponent,
     CredentialsComponent,
-    ProofsComponent
+    ProofsComponent,
+    AccountConfirmedComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +53,8 @@ import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
     ReactiveFormsModule,
     QRCodeModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    AccordionModule.forRoot(),
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
     PopoverModule.forRoot(),
