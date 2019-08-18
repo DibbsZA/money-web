@@ -28,7 +28,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     }
 
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
-    // console.log(request);
+    console.log('TCL: HttpConfigInterceptor -> request', request);
+
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
