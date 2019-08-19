@@ -34,6 +34,7 @@ import { ProofsComponent } from './pages/proofs/proofs.component';
 
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 import { AccountConfirmedComponent } from './pages/account-confirmed/account-confirmed.component';
+import { ConnectionFilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AccountConfirmedComponent } from './pages/account-confirmed/account-con
     MessagesComponent,
     CredentialsComponent,
     ProofsComponent,
-    AccountConfirmedComponent
+    AccountConfirmedComponent,
+    ConnectionFilterPipe
   ],
   imports: [
     BrowserModule,
