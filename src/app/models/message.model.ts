@@ -24,7 +24,7 @@ export interface Message {
   /**
    * Content of the message
    */
-  payload?: string;
+  payload?: MessagePayload;
   /**
    * Unique ID of messsage
    */
@@ -33,4 +33,42 @@ export interface Message {
    * Type of message.
    */
   type?: string;
+}
+
+export interface MessagePayload {
+  '@type': MessagePayloadType;
+  '@msg': string;
+}
+
+interface MessagePayloadType {
+  name: string;
+  ver: string;
+  fmt: string;
+}
+
+export interface MessagePayloadMsg {
+  version: string;
+  to_did: string;
+  from_did: string;
+  proof_request_id: string;
+  libindy_proof: string;
+}
+
+export interface LibindyProof {
+  proof: object;
+  requested_proof: RequestedProof;
+  identifiers: [object];
+}
+
+interface RequestedProof {
+  revealed_attrs: [SubProof];
+  self_attested_attrs: [SubProof?];
+  unrevealed_attrs: [object];
+  predicates: object;
+}
+
+interface SubProof {
+  sub_proof_index: number;
+  raw: string;
+  encoded: string;
 }
