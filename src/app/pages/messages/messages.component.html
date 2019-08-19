@@ -14,13 +14,13 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="form-group infield">
-                <label>connectionId</label>
+                <label>Connection Id</label>
                 <input [(ngModel)]="connectionId" type="text" maxlength="50" class="form-control" [value]="connectionId"
                   [ngModelOptions]="{standalone: true}">
               </div>
               <div class="loanflow-buttons icon-buttons">
                 <button (click)="getMessagesById(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
-                  name="wf_do_next">Run</button>
+                  name="wf_do_next">Get messages for {{ connectionId }}</button>
               </div>
               <h5>List of connections</h5>
               <accordion>

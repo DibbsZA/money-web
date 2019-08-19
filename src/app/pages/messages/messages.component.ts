@@ -10,8 +10,9 @@ import { ConnectionService } from 'src/app/services/connection.service';
 // import * as faker from 'faker';
 // import { HttpErrorResponse } from '@angular/common/http';
 import { Connection } from 'src/app/models/connection.model';
-import { Message } from 'src/app/models/message.model';
+import { Message, MessagePayload, MessagePayloadMsg, LibindyProof } from 'src/app/models/message.model';
 import { MessageService } from 'src/app/services/message.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-messages',
@@ -54,6 +55,17 @@ export class MessagesComponent implements OnInit {
    * getMessages
    */
   public getMessagesById(connectionId: string) {
-    this.messagesData$ = this.vcxMessageSvc.messagesGet(connectionId);
+    this.messagesData$ = this.vcxMessageSvc.messagesGet(connectionId)
+      .pipe(
+        map((d, i) => {
+          if (null != d[i].payload) {
+            const pyld: MessagePayload = d[i].payload;
+            const msg: MessagePayloadMsg = JSON.parse(pyld['@msg']);
+            const libindy: LibindyProof = JSON.parse(msg.libindy_proof);
+            console.log(libindy);
+          }
+          return d;
+        })
+      )
   }
 }
