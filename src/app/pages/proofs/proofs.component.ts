@@ -47,7 +47,7 @@ export class ProofsComponent implements OnInit {
    * @date 2019-08-15
    */
   public getProofsId(connectionId: string) {
-    this.proofData$ = this.vcxProofSvc.proofGet(connectionId);
+    this.proofsData$ = this.vcxProofSvc.proofsGet(); // .proofGet(connectionId);
   }
 
   public selectId(id: string) {
@@ -57,15 +57,15 @@ export class ProofsComponent implements OnInit {
 
   public async sendProofRequest(id: string) {
     const req: CreateProof = {
-      attributes: ['email'],
-      name: 'Email'
+      attributes: ['sex', 'status'],
+      name: 'Kane'
     };
 
     await this.vcxProofSvc.proofRequest(req, id)
       .toPromise()
       .then(r => {
         console.log('TCL: TesterComponent -> sendCredentialRequest -> r', r);
-        this.proofResult = 'Requested Email from: ' + JSON.stringify(r);
+        this.proofResult = 'Requested ' + req.attributes + ' from: ' + JSON.stringify(r);
       })
       .catch(e => {
         console.log('TCL: TesterComponent -> sendCredentialRequest -> e', e);

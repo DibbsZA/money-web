@@ -22,7 +22,7 @@
                 <!-- <button (click)="getProofsId(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
                   name="wf_do_next">Get Proofs</button> &nbsp; -->
                 <button (click)="sendProofRequest(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
-                  name="wf_do_next">Request Email from: {{ connectionId }} </button>
+                  name="wf_do_next">Request Attr from: {{ connectionId }} </button>
               </div>
               <h5>Select Connection</h5>
               <accordion>
@@ -37,7 +37,8 @@
             <div class="col-sm-8">
               <h5>Proofs for Connection: {{connectionId}} </h5>
               <accordion>
-                <accordion-group *ngFor="let proof of proofsData$ | async" heading='{{proof.id}}' [isOpen]="true">
+                <accordion-group *ngFor="let proof of proofsData$ | async | connectionFilter : connectionId"
+                  heading='{{proof.proofName}}' [isOpen]="true">
                   <pre>
 {{ proof | json }}
 </pre>
