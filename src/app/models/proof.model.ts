@@ -18,6 +18,11 @@ export interface Proof {
    * Id of Proof as VCXR REST Resource.
    */
   id?: string;
+
+  /**
+  * Connection id.
+  */
+  connectionId: string;
   /**
    * Name given to proof instance.
    */
