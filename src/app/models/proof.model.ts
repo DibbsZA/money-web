@@ -20,8 +20,8 @@ export interface Proof {
   id?: string;
 
   /**
-  * Connection id.
-  */
+   * Connection id.
+   */
   connectionId: string;
   /**
    * Name given to proof instance.
