@@ -47,4 +47,6 @@ export interface Proof {
    * 4=accepted
    */
   state?: string;
+
+  proofData?: Array<object>;
 }
