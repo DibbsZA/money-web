@@ -83,7 +83,7 @@ export class CredentialsComponent implements OnInit {
       .credentialCreate(
         this.createData,
         this.connectionId,
-        'omb-email1')
+        'omb-email2')
       .toPromise()
       .then(r => {
         console.log('TCL: CredentialsComponent -> issueCreds -> r', r);
