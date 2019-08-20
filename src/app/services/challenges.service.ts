@@ -67,9 +67,12 @@ export class ProofsService {
    * @param reportProgress flag to report request and response progress.
    */
   public challengeCreate(connectionId: string, challengeId: string, observe?: 'body', reportProgress?: boolean): Observable<Challenge>;
-  public challengeCreate(connectionId: string, challengeId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Challenge>>;
-  public challengeCreate(connectionId: string, challengeId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Challenge>>;
-  public challengeCreate(connectionId: string, challengeId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+  public challengeCreate(
+    connectionId: string, challengeId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Challenge>>;
+  public challengeCreate(
+    connectionId: string, challengeId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Challenge>>;
+  public challengeCreate(
+    connectionId: string, challengeId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
     if (connectionId === null || connectionId === undefined) {
       throw new Error('Required parameter connectionId was null or undefined when calling challengeCreate.');
@@ -119,10 +122,14 @@ export class ProofsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public challengeSolutionCreate(connectionId: string, challengeId: string, observe?: 'body', reportProgress?: boolean): Observable<Solution>;
-  public challengeSolutionCreate(connectionId: string, challengeId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Solution>>;
-  public challengeSolutionCreate(connectionId: string, challengeId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Solution>>;
-  public challengeSolutionCreate(connectionId: string, challengeId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+  public challengeSolutionCreate(
+    connectionId: string, challengeId: string, observe?: 'body', reportProgress?: boolean): Observable<Solution>;
+  public challengeSolutionCreate(
+    connectionId: string, challengeId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Solution>>;
+  public challengeSolutionCreate(
+    connectionId: string, challengeId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Solution>>;
+  public challengeSolutionCreate(
+    connectionId: string, challengeId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
     if (connectionId === null || connectionId === undefined) {
       throw new Error('Required parameter connectionId was null or undefined when calling challengeSolutionCreate.');
@@ -152,8 +159,8 @@ export class ProofsService {
     const consumes: string[] = [
     ];
 
-    return this.httpClient.post<Solution>(
-      `${this.basePath}/connections/${encodeURIComponent(String(connectionId))}/challenges/${encodeURIComponent(String(challengeId))}/solutions`,
+    // tslint:disable-next-line: max-line-length
+    return this.httpClient.post<Solution>(`${this.basePath}/connections/${encodeURIComponent(String(connectionId))}/challenges/${encodeURIComponent(String(challengeId))}/solutions`,
       null,
       {
         withCredentials: this.configuration.withCredentials,

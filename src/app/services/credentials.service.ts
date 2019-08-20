@@ -68,10 +68,17 @@ export class CredentialsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public credentialCreate(body: CreateCredential, connectionId: string, credentialId: string, observe?: 'body', reportProgress?: boolean): Observable<ResourceId>;
-  public credentialCreate(body: CreateCredential, connectionId: string, credentialId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResourceId>>;
-  public credentialCreate(body: CreateCredential, connectionId: string, credentialId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResourceId>>;
-  public credentialCreate(body: CreateCredential, connectionId: string, credentialId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+  public credentialCreate(
+    body: CreateCredential, connectionId: string, credentialId: string, observe?: 'body', reportProgress?: boolean): Observable<ResourceId>;
+  public credentialCreate(
+    // tslint:disable-next-line: max-line-length
+    body: CreateCredential, connectionId: string, credentialId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResourceId>>;
+  public credentialCreate(
+    // tslint:disable-next-line: max-line-length
+    body: CreateCredential, connectionId: string, credentialId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResourceId>>;
+  public credentialCreate(
+    // tslint:disable-next-line: max-line-length
+    body: CreateCredential, connectionId: string, credentialId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
     if (body === null || body === undefined) {
       throw new Error('Required parameter body was null or undefined when calling credentialCreate.');

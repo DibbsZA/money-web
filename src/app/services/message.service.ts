@@ -121,10 +121,14 @@ export class MessageService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public messageStatusUpdate(body: Array<string>, id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-  public messageStatusUpdate(body: Array<string>, id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-  public messageStatusUpdate(body: Array<string>, id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-  public messageStatusUpdate(body: Array<string>, id: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+  public messageStatusUpdate(
+    body: Array<string>, id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+  public messageStatusUpdate(
+    body: Array<string>, id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+  public messageStatusUpdate(
+    body: Array<string>, id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+  public messageStatusUpdate(
+    body: Array<string>, id: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
     if (body === null || body === undefined) {
       throw new Error('Required parameter body was null or undefined when calling messageStatusUpdate.');

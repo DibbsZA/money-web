@@ -66,6 +66,6 @@ export class MessagesComponent implements OnInit {
           }
           return d;
         })
-      )
+      );
   }
 }
