@@ -22,11 +22,11 @@
       </div>
     </div>
   </nav>
-  <div class="container container-loanflow pad80 padb120">
+  <div class="container container-loanflow pad60 padb80">
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">SAFBC Bank | Register</h3>
+          <h3 class="panel-title">SAFBC Bank | Open your <strong>MAHHALA Account</strong></h3>
         </div>
         <div class="panel-body pad15">
           <p>Please complete your details below</p>
@@ -133,16 +133,26 @@
     </form>
   </div>
   <div class="bodyfooter small-footer font11">
-    <div class="breakline"></div>
+    <div class="breakline">
+      <nav class="marg100left">
+        <a href="/signup">signup</a> |
+        <a href="/confirmed">confirmed</a> |
+        <a href="/tester">tester</a> |
+        <a href="/messages">messages</a> |
+        <a href="/creds">creds</a> |
+        <a href="/proofs">proofs</a>
+      </nav>
+    </div>
     <div class="container containSitemap">
+
       <div class="VignetteOuter">
         <div class="FooterVignetteInner"><img src="/assets/safbc.jpg" alt=""></div>
       </div>
       <div class="copyright">
         <div class="container">
           <div class="copyrightinner">
-            <p>This page was built purely for demonstration purposes. It merely represents the potential functionality
-              that SSI technologies could offer to the consumer<br>
+            <p>This site has been built for demonstration purposes only. It serves to show the potential
+              functionality that SSI technologies could offer to the consumer.</p>
           </div>
         </div>
       </div>

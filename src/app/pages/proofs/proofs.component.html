@@ -1,10 +1,17 @@
 <div id="body_acquisitionflow_register">
-
+  <nav class="marg100left">
+    <a href="/signup">signup</a> |
+    <a href="/confirmed">confirmed</a> |
+    <a href="/tester">tester</a> |
+    <a href="/messages">messages</a> |
+    <a href="/creds">creds</a> |
+    <a href="/proofs">proofs</a>
+  </nav>
   <div id="overlay-temp" style="display: none;">
     <!-- <div id="overlay-temp-content"></div> -->
     <!-- <div id="overlay-temp-logo">Loading... Please Wait...</div> -->
   </div>
-  <div class="container container-loanflow pad140 padb120">
+  <div class="container container-loanflow pad10 padb20">
     <form id="acquisitionflow_register">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -13,7 +20,7 @@
         <div class="panel-body pad15">
           <div class="row">
             <div class="col-sm-4">
-              <div class="form-group infield">
+              <div class="form-group infield show-label">
                 <label>connectionId</label>
                 <input [(ngModel)]="connectionId" [ngModelOptions]="{standalone: true}" type="text" maxlength="50"
                   class="form-control" [value]="connectionId">

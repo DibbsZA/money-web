@@ -167,9 +167,9 @@ body {
 }
 
 .bodyfooter .breakline {
-  padding-bottom: 18px;
+  padding-bottom: 14px;
   margin-bottom: 0;
-  background: url(/assets/images/section-1920.png) no-repeat center bottom !important
+  /* background: url(/assets/images/section-1920.png) no-repeat center bottom !important */
 }
 
 .copyrightinner {
@@ -222,7 +222,7 @@ body {
 
 .assist-ma-ac .HeaderVignetteInner,
 .apply-ma-ac .HeaderVignetteInner {
-  bottom: -90px !important
+  bottom: -65px !important
 }
 
 .assist-ma-ac .header-logo,
@@ -578,6 +578,10 @@ p.footnote {
   padding-top: 50px
 }
 
+.pad60 {
+  padding-top: 60px
+}
+
 .pad70 {
   padding-top: 70px
 }
@@ -748,6 +752,12 @@ p.footnote {
 
 .marg130 {
   margin-top: 130px !important
+}
+
+.marg100left {
+  margin-left: 230px !important;
+  z-index: 1;
+  position: relative;
 }
 
 .margtb0 {
