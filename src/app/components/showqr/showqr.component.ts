@@ -9,12 +9,12 @@ import { GlobalEventService, Announcement } from 'src/app/services/global-event.
   styleUrls: ['./showqr.component.css']
 })
 export class ShowqrComponent implements OnInit {
-  title: string;
+  title: string = null;
+  text: string = null;
   closeBtnName: string;
-  list: any[] = [];
   invitedata: string;
 
-  angularxQrCode: string;
+  angularxQrCode: string = null;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -33,7 +33,12 @@ export class ShowqrComponent implements OnInit {
         }
       }
     });
-    this.angularxQrCode = this.invitedata;
+    if (this.invitedata !== '') {
+      this.angularxQrCode = this.invitedata;
+    } else {
+      this.angularxQrCode = null;
+    }
+
   }
 
   close() {

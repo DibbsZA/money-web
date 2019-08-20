@@ -5,7 +5,8 @@
   </button>
 </div>
 <div class="modal-body">
-  <qrcode [qrdata]="angularxQrCode" [size]="300" [level]="'M'"></qrcode>
+  <span *ngIf="text"> {{ text }} </span>
+  <qrcode *ngIf="angularxQrCode !== null" [qrdata]="angularxQrCode" [size]="300" [level]="'M'"></qrcode>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" (click)="close()">{{closeBtnName}}</button>

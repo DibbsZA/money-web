@@ -128,7 +128,7 @@
         <button (click)="invite()" class="btn success-light warning-light">CONNECT WITH <img
             src="../../../assets/favicon.png" style="height: 25px"> Sovrin</button>
         <button type="submit" [disabled]="!signupForm.valid" class="btn success-light">NEXT</button>
-        <span *ngIf="indyLoading">Indy status: {{ indyStatusMessage }}</span>
+        <span>Indy status: {{ indyStatusMessage }}</span>
       </div>
     </form>
   </div>
