@@ -5,10 +5,12 @@ import { TesterComponent } from './pages/tester/tester.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { CredentialsComponent } from './pages/credentials/credentials.component';
 import { ProofsComponent } from './pages/proofs/proofs.component';
+import { AccountConfirmedComponent } from './pages/account-confirmed/account-confirmed.component';
 
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
+  { path: 'confirmed', component: AccountConfirmedComponent },
   { path: 'tester', component: TesterComponent },
   { path: 'creds', component: CredentialsComponent },
   { path: 'messages', component: MessagesComponent },

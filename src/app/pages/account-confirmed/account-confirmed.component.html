@@ -1,1 +1,124 @@
-<p>account-confirmed works!</p>
+<div id="body_acquisitionflow_register">
+
+  <div id="overlay-temp" style="display: none;">
+    <div id="overlay-temp-content"></div>
+    <!-- <div id="overlay-temp-logo">Loading... Please Wait...</div> -->
+  </div>
+  <nav class="navbar navbar-default navbar-fixed-top secure-nav apply-ma-ac">
+    <div class="container-fluid buttonnav OMblack nopad">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="VignetteOuter">
+              <a class="HeaderVignetteInner startoverlay"><img src="/assets/safbc.jpg" class="header-logo"></a>
+            </div>
+            <div class="displaynonemobile nav-btns pull-right pad5 padb5">
+              <button class="btn btn-sm btn-success success-dark no-overlay-please">CONTACT US</button>
+            </div>
+            <div class="navbar-header">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container container-loanflow pad80 padb120">
+    <!-- <form [formGroup]="completeForm" (ngSubmit)="onSubmit()"> -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">SAFBC Bank | Account Application Complete!</h3>
+      </div>
+      <div class="panel-body pad15">
+        <p style="font-size: 1.4em">Congratulations! Your new <strong>Mahhala Bank Account</strong> is ready!</p>
+        <p>Since you used your Digital Identity Wallet to sign up, we would like to offer you a
+          <strong>Proof-of-Accountcredential</strong>
+          that can use to prove to others that you bank with us.</p>
+        <p>If you accept below, you will be issued a credential from SAFBC Bank with the following details:</p>
+        <p>&nbsp;</p>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group infield show-label">
+              <label>Bank Name</label>
+              <!-- <input formControlName="identityNumber" type="number" class="form-control" id='fidnumber'
+                  placeholder="ID number" value="identityNumber.value" required minlength="13"> -->
+              <span class="proofText">{{ accountCred.bank }}</span>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group infield show-label">
+              <label for="ftitle">Account Holder</label>
+              <span class="proofText">{{ accountCred.accountHolder}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group infield  show-label">
+              <label for="ffname">Account Type</label>
+              <span class="proofText">{{accountCred.accountType}}</span>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group infield  show-label">
+              <label for="flname">Account Open Date</label>
+              <span class="proofText">{{accountCred.openDate}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group infield  show-label">
+              <label>Account Number</label>
+              <span class="proofText">{{accountCred.accountNo}}</span>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group infield show-label ">
+              <!-- <label for="fcellphone">Cell phone number</label> -->
+              <!-- <span class="proofText"></span> -->
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group infield  show-label">
+              <label>Branch No</label>
+              <span class="proofText">{{accountCred.branchCode}}</span>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group infield show-label">
+              <!-- <label>Email Address</label> -->
+              <!-- <span class="proofText"></span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="loanflow-buttons icon-buttons">
+      <button (click)="issueAccountCred()" class="btn success-light warning-light">ISSUE WITH <img
+          src="../../../assets/favicon.png" style="height: 25px"> Sovrin</button>
+      <!-- <button type="submit" [disabled]="!signupForm.valid" class="btn success-light">NEXT</button> -->
+      <span *ngIf="indyLoading">Indy status: {{ indyStatusMessage }}</span>
+    </div>
+    <!-- </form> -->
+  </div>
+  <div class="bodyfooter small-footer font11">
+    <div class="breakline"></div>
+    <div class="container containSitemap">
+      <div class="VignetteOuter">
+        <div class="FooterVignetteInner"><img src="/assets/safbc.jpg" alt=""></div>
+      </div>
+      <div class="copyright">
+        <div class="container">
+          <div class="copyrightinner">
+            <p>This page was built purely for demonstration purposes. It merely represents the potential functionality
+              that SSI technologies could offer to the consumer<br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
