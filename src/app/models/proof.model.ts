@@ -22,7 +22,7 @@ export interface Proof {
   /**
    * Connection id.
    */
-  connectionId: string;
+  connectionId?: string;
   /**
    * Name given to proof instance.
    */
