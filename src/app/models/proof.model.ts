@@ -30,7 +30,7 @@ export interface Proof {
   /**
    * List of attributes verifier is requesting from prover to prove.
    */
-  requestedAttrs?: Array<string>;
+  requestedAttrs?: Array<ProofReqAttributes>;
   /**
    * Prediccates placing restrictions on how the proof can be constructed by prover.
    */
@@ -49,4 +49,8 @@ export interface Proof {
   state?: string;
 
   proofData?: Array<object>;
+}
+
+export interface ProofReqAttributes {
+  name: string;
 }
