@@ -13,7 +13,7 @@ import { ProofsService } from 'src/app/services/proofs.service';
 import * as faker from 'faker';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Connection } from 'src/app/models/connection.model';
-import { CreateProof } from 'src/app/models/models';
+import { CreateProof, InvitationString } from 'src/app/models/models';
 
 @Component({
   selector: 'app-tester',
@@ -177,8 +177,14 @@ export class TesterComponent implements OnInit {
       .connectionInvitationGet(id)
       .toPromise()
       .then(invite => {
+        // Intercept & replace invitation data for now
+        const inv: InvitationString = JSON.parse(invite.invitationString);
+        inv.s.l = 'https://pbs.twimg.com/profile_images/1036552935658926081/bfjI50Q1_normal.jpg';
+        inv.s.n = 'SAFBC Bank3';
+        console.log('TCL: TesterComponent -> fillWithIndy -> inv', JSON.stringify(inv));
         console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
-        this.openModalWithComponent(invite.invitationString);
+        this.openModalWithComponent('Scan with your Identity Wallet App', '', JSON.stringify(inv));
+
 
       })
       .catch();
@@ -223,10 +229,11 @@ export class TesterComponent implements OnInit {
       });
   }
 
-  openModalWithComponent(data) {
+  openModalWithComponent(titleValue: string, textValue?: string, qrData?: string) {
     const initialState = {
-      title: 'Scan with ID App',
-      invitedata: data
+      title: titleValue,
+      text: textValue,
+      invitedata: qrData
     };
     this.bsModalRef = this.modalService.show(ShowqrComponent, { initialState });
     this.bsModalRef.content.closeBtnName = 'Close';
