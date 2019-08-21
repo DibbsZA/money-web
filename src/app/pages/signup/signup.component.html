@@ -113,7 +113,8 @@
               </div>
             </div>
             <div class="col-sm-6">
-              Form status: {{ signupForm.status }}<br />
+
+              <!-- Form status: {{ signupForm.status }}<br /> -->
 
               <span *ngIf="signupForm.valid">Form data: {{ signupForm.value | json }}</span>
             </div>
@@ -127,8 +128,10 @@
       <div class="loanflow-buttons icon-buttons">
         <button (click)="invite()" class="btn success-light warning-light">CONNECT WITH <img
             src="../../../assets/favicon.png" style="height: 25px"> Sovrin</button>
+        <button type="button" (click)="getProofResponse(proofReqUID)" [disabled]="!proofSent"
+          class="btn success-light">GET ID DATA {{proofReqUID}}</button>
         <button type="submit" [disabled]="!signupForm.valid" class="btn success-light">NEXT</button>
-        <span>Indy status: {{ indyStatusMessage }}</span>
+        <span>Poll count: {{ pollCount }}<br />Indy status: {{ indyStatusMessage }}</span>
       </div>
     </form>
   </div>
@@ -152,7 +155,7 @@
         <div class="container">
           <div class="copyrightinner">
             <p>This site has been built for demonstration purposes only. It serves to show the potential
-              functionality that SSI technologies could offer to the consumer.</p>
+              functionality that SSI technologies could offer to the participants.</p>
           </div>
         </div>
       </div>
