@@ -47,6 +47,8 @@ export class SignupComponent implements OnInit {
   connectionsData$: Observable<Connection[]>;
   connectionData$: Observable<Connection>;
   load$ = new BehaviorSubject('');
+  proofReqUID: string;
+  proofSent: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -60,8 +62,10 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.signupForm.patchValue({ identityNumber: '1234567890123' });
+
   }
+
+
   /**
    * invite
    */
@@ -75,87 +79,121 @@ export class SignupComponent implements OnInit {
 
     this.indyStatusMessage = 'Creating connection ...';
 
-    await this.vcxConnectionSvc
+
+
+    this.createConnection(this.connectName).then(b => {
+      console.log('promis returned true');
+
+      this.showInviteQR(this.connectName);
+      // .then(() => {
+      //   this.pollConnectionEstablished(this.connectName);
+      // });
+
+      // .then(c => {
+      //   if (this.connectionEstablished) {
+      //     this.indyStatusMessage = 'Connection Established!!!';
+      //     return true;
+      //   }
+      // });
+    });
+
+  }
+
+  /**
+   *
+   */
+  public createConnection(id) {
+    return this.vcxConnectionSvc
       .connectionCreate(this.connectName)
       .toPromise()
-      .then(async conn => {
-        console.log('TCL: SignupComponent -> invite -> conn', conn);
+      .then(conn => {
+        console.log('TCL: SignupComponent -> createConnection -> conn', conn);
         // Connection is created
-        this.indyStatusMessage = 'Connection created. Getting invite data...';
-
-        // set up connection observer
-        const connection$ = this.vcxConnectionSvc.connectionGet(this.connectName);
-
-        // setup observer polling logic
-        let whenToRefresh$ = of('').pipe(
-          delay(5000),
-          tap(_ => {
-            if (this.connectionEstablished) {
-              this.load$.unsubscribe();
-              whenToRefresh$ = null;
-              console.log('stop polling');
-            } else {
-              this.load$.next('');
-            }
-
-          }),
-          skip(1),
-        );
-
-        // Connection is created so now we try get the invite code.
-        await this.vcxConnectionSvc
-          .connectionInvitationGet(this.connectName)
-          .toPromise()
-          .then(invite => {
-            // Intercept & replace invitation data for now
-            const inv: InvitationString = JSON.parse(invite.invitationString);
-            inv.s.l = 'https://pbs.twimg.com/profile_images/1036552935658926081/bfjI50Q1_normal.jpg';
-            inv.s.n = 'SAFBC Bank2';
-            console.log('TCL: TesterComponent -> fillWithIndy -> inv', JSON.stringify(inv));
-
-            // This is where I need to poll if the connection was accepted
-            this.indyStatusMessage = 'Found an invite. Showing QR';
-            // show qr code
-            this.openModalWithComponent('Scan with your Identity Wallet App', '', JSON.stringify(inv));
-
-
-            const poll$ = concat(connection$, whenToRefresh$);
-            this.connectionData$ = this.load$.pipe(
-              concatMap(_ => poll$),
-              map((response: Connection) => {
-                console.log('pollcount', this.pollCount++);
-                if (response.state === 4) {
-                  this.connectionEstablished = true;
-
-                  // send announcement to close modal
-                  this.eventSvc.announceEmmiter$.emit({ connectionEstablished: true });
-                  // now we can request credentials proof
-                  this.sendCredentialRequest(this.connectName);
-                }
-                return response;
-              }),
-            );
-          })
-          .catch(e => {
-            console.error('TCL: SignupComponent -> invite -> e', e);
-          });
-      })
-      .catch(e => {
-        console.error('TCL: SignupComponent -> invite -> e', e);
+        this.indyStatusMessage = 'Connection created. returning';
+        return true;
       });
   }
 
-  public async sendCredentialRequest(id) {
+  /**
+   * showInviteQR
+   */
+  public showInviteQR(id) {
+    // User is created so now we try get the invite code
+    return this.vcxConnectionSvc
+      .connectionInvitationGet(id)
+      .toPromise()
+      .then(async invite => {
+        // Intercept & replace invitation data for now
+        const inv: InvitationString = JSON.parse(invite.invitationString);
+        inv.s.l = 'https://pbs.twimg.com/profile_images/1036552935658926081/bfjI50Q1_normal.jpg';
+        inv.s.n = 'SAFBC Bank ' + id;
+
+        this.indyStatusMessage = 'Creating connection: ' + inv.s.n;
+        // console.log('TCL: TesterComponent -> fillWithIndy -> inv', JSON.stringify(inv));
+        // console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
+        this.openModalWithComponent('Scan with your Identity Wallet App', inv.s.n, JSON.stringify(inv));
+        await this.pollConnectionEstablished(id);
+        // return true;
+      })
+      .catch();
+  }
+
+  /**
+   * pollConnectionEstablished
+   */
+  public pollConnectionEstablished(id) {
+    this.pollCount = 0;
+    const connection$ = this.vcxConnectionSvc.connectionGet(id);
+
+    let whenToRefresh$ = of('').pipe(
+      delay(5000),
+      tap(_ => {
+        if (this.connectionEstablished) {
+          this.load$.unsubscribe();
+          whenToRefresh$ = null;
+          console.log('stop polling');
+        } else {
+          this.load$.next('');
+        }
+
+      }),
+      skip(1),
+    );
+
+    const poll$ = concat(connection$, whenToRefresh$);
+
+    this.load$
+      .pipe(
+        concatMap(_ => poll$),
+        map((response: Connection) => {
+          this.pollCount++;
+          if (response.state === 4) {
+            this.connectionEstablished = true;
+            this.eventSvc.announceEmmiter$.emit({ connectionEstablished: true });
+            // FIXME: The modal is closing, but click input to page is still blocked????
+
+            // now we can request credentials proof
+            this.sendCredentialRequest(id);
+          }
+          return response;
+        }),
+      ).subscribe(x => {
+        console.log(x);
+        return x;
+      });
+  }
+
+  public sendCredentialRequest(id) {
     const req: CreateProof = {
       attributes: [
         'names',
         'surname',
-        'identityNumber',
-        'sex',
-        'nationality',
-        'dateOfBirth',
-        'countryOfBirth',
-        'status',
+        // 'identityNumber',
+        // 'sex',
+        // 'nationality',
+        // 'dateOfBirth',
+        // 'countryOfBirth',
+        // 'status',
         // 'fullAddress',
         // 'cellphone',
         // 'email'
@@ -163,30 +201,46 @@ export class SignupComponent implements OnInit {
       name: 'FULL-KYC-' + id
     };
 
-    this.indyStatusMessage = 'Sending proof request to your phone';
-    this.openModalWithComponent(
-      'Sending proof request to your phone',
-      'Open your Identity app and approve the data request.',
-      null);
-    await this.vcxProofSvc.proofRequest(req, id)
-      .toPromise()
-      .then(async r => {
-        console.log('TCL: TesterComponent -> sendProofRequest -> r', r);
-        await this.vcxProofSvc.proofGet(r.id)
-          .toPromise()
-          .then(p => {
-            console.log('TCL: SignupComponent -> proofGet -> p', p);
+    this.indyStatusMessage = 'Sending proof request to your phone: ' + id;
+    // this.openModalWithComponent(
+    //   'Sending proof request to your phone',
+    //   'Open your Identity app and approve the data request.',
+    //   null);
+    this.vcxProofSvc
+      .proofRequest(req, id)
+      .pipe(
+        tap(x => {
+          console.log(x);
+          this.proofReqUID = x.id;
+          this.proofSent = true;
+          return x.id;
+        })
+      )
+      .subscribe();
+    // .toPromise()
+    // .then(async r => {
+    //   console.log('TCL: TesterComponent -> sendProofRequest -> r', r);
 
-          })
-          .catch(e => {
-            console.log('TCL: SignupComponent -> proofGet -> e', e);
+    // })
+    // .catch(e => {
+    //   console.log('TCL: TesterComponent -> sendCredentialRequest -> e', e);
+    //   return e;
+    // });
+  }
 
-          });
-      })
-      .catch(e => {
-        console.log('TCL: TesterComponent -> sendCredentialRequest -> e', e);
-
-      });
+  getProofResponse(uuid) {
+    this.vcxProofSvc.proofGet(uuid)
+      .pipe(
+        tap(p => {
+          console.log(p);
+          if (p.state === 'accepted') {
+            for (let index = 0; index < p.requestedAttrs.length; index++) {
+              const attrName = p.requestedAttrs[index].name;
+              const attrValu = p.proofData.values()[index];
+            }
+          }
+        })
+      ).subscribe();
   }
 
 
