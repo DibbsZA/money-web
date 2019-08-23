@@ -10,6 +10,7 @@ import { GlobalEventService } from 'src/app/services/global-event.service';
 import * as faker from 'faker';
 import { HttpErrorResponse } from '@angular/common/http';
 import { InvitationString, Connection, CreateProof } from 'src/app/models/models';
+import { EKyc } from 'src/app/models/e-kyc.model';
 
 @Component({
   selector: 'app-signup',
@@ -188,13 +189,13 @@ export class SignupComponent implements OnInit {
       attributes: [
         'names',
         'surname',
-        // 'identityNumber',
-        // 'sex',
-        // 'nationality',
-        // 'dateOfBirth',
-        // 'countryOfBirth',
-        // 'status',
-        // 'fullAddress',
+        'identityNumber',
+        'sex',
+        'nationality',
+        'dateOfBirth',
+        'countryOfBirth',
+        'status',
+        'fullAddress',
         // 'cellphone',
         // 'email'
       ],
@@ -229,14 +230,51 @@ export class SignupComponent implements OnInit {
   }
 
   getProofResponse(uuid) {
+
+    let proofData: EKyc;
+
     this.vcxProofSvc.proofGet(uuid)
       .pipe(
         tap(p => {
           console.log(p);
           if (p.state === 'accepted') {
+            // tslint:disable-next-line: prefer-for-of
             for (let index = 0; index < p.requestedAttrs.length; index++) {
               const attrName = p.requestedAttrs[index].name;
-              const attrValu = p.proofData.values()[index];
+              const attrValu = p.proofData.shift();
+
+              switch (attrName) {
+                case 'names':
+                  // this.signupForm.patchValue('names', )
+                  break;
+                case 'surname':
+
+                  break;
+                case 'identityNumber':
+
+                  break;
+                case 'sex':
+
+                  break;
+                case 'nationality':
+
+                  break;
+                case 'dateOfBirth':
+
+                  break;
+                case 'countryOfBirth':
+
+                  break;
+                case 'status':
+
+                  break;
+                case 'fullAddress':
+
+                  break;
+
+                default:
+                  break;
+              }
             }
           }
         })
