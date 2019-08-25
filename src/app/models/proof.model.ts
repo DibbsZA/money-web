@@ -48,7 +48,8 @@ export interface Proof {
    */
   state?: string;
 
-  proofData?: Array<object>;
+  // tslint:disable-next-line: ban-types
+  proofData?: Array<Object>;
 }
 
 export interface ProofReqAttributes {
