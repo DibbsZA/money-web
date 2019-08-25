@@ -44,21 +44,58 @@ export interface EKyc {
   status?: string;
 }
 
-export interface EKycResidence {
+export interface KycNamesCred {
+  names?: string;
+}
+
+export interface KycSurnameCred {
+  surname?: string;
+}
+
+export interface KycSexCred {
+  sex?: string;
+}
+
+export interface KycNationalityCred {
+  nationality?: string;
+}
+
+export interface KycIdentityNumberCred {
+  identityNumber?: string;
+}
+
+export interface KycDateOfBirthCred {
+  dateOfBirth?: string;
+}
+
+export interface KycNamesCred {
+  names?: string;
+}
+
+export interface KycCountryOfBirthCred {
+  countryOfBirth?: string;
+}
+
+export interface KycStatusCred {
+  status?: string;
+}
+
+
+export interface KycResidence {
   /**
    * @description Full formatted residential address
    */
   fullAddress?: string;
 }
 
-export interface EmailCred {
+export interface CredEmail {
   /**
    * @description verified email address
    */
   email?: string;
 }
 
-export interface CellphoneCred {
+export interface CredCellphone {
   /**
    * @description Verified Full international dialing number of cellphone
    * @example +27825551234
