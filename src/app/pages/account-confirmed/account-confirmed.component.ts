@@ -1,13 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControlName } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+// import { FormBuilder, Validators, FormControlName } from '@angular/forms';
+// import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
-import { ConnectionService } from 'src/app/services/connection.service';
-import * as faker from 'faker';
-import { HttpErrorResponse } from '@angular/common/http';
-import { InvitationString } from 'src/app/models/models';
+import { tap } from 'rxjs/operators';
+
+import { BsModalRef } from 'ngx-bootstrap/modal';
+// import { ShowqrComponent } from 'src/app/components/showqr/showqr.component';
+// import { ConnectionService } from 'src/app/services/connection.service';
+// import * as faker from 'faker';
+
+import { CreateCredential } from 'src/app/models/models';
 import { AccountProof } from 'src/app/models/account-proof.model';
+// import { EKyc } from 'src/app/models/e-kyc.model';
+import { formatDate } from '@angular/common';
+import { CredentialsService } from 'src/app/services/credentials.service';
+import { SignupForm } from 'src/app/models/forms.model';
 
 
 @Component({
@@ -17,6 +25,8 @@ import { AccountProof } from 'src/app/models/account-proof.model';
 })
 export class AccountConfirmedComponent implements OnInit {
 
+  formData: SignupForm;
+
   accountCred: AccountProof;
 
   bsModalRef: BsModalRef;
@@ -24,24 +34,34 @@ export class AccountConfirmedComponent implements OnInit {
   mydate: number;
   indyLoading = false;
   indyStatusMessage: string;
+  state$: Observable<any>;
+  resourceId: import("/Users/garyd/NewCode/SAFBC/IFWG/money-web/src/app/models/resourceId.model").ResourceId;
 
   constructor(
-    private fb: FormBuilder,
-    private modalService: BsModalService,
-    private vcxConnectionSvc: ConnectionService,
+    public activatedRoute: ActivatedRoute,
+    // private fb: FormBuilder,
+    // private modalService: BsModalService,
+    // private vcxConnectionSvc: ConnectionService,
+    private vcxCredentialSvc: CredentialsService
   ) {
     this.indyStatusMessage = null;
     this.indyLoading = false;
+
   }
 
   ngOnInit(): void {
+
+    this.formData = window.history.state;
+
+    console.log(this.formData);
+
     this.accountCred = {
       bank: 'SAFBC BANK',
-      accountHolder: 'JRR TOLKIEN',
-      accountType: 'TRANSMISSION',
-      accountNo: '00012345679',
+      accountHolder: this.formData.names + ' ' + this.formData.surname,
+      accountType: 'SAVINGS',
+      accountNo: '99012345679',
       branchCode: '920001',
-      openDate: '20190820'
+      openDate: formatDate(Date.now(), 'yyyy-MM-dd', 'en-ZA')
     };
   }
 
@@ -49,101 +69,22 @@ export class AccountConfirmedComponent implements OnInit {
    * issueAccountCred
    */
   public issueAccountCred() {
-
-  }
-
-  /**
-   * invite
-   */
-  public async invite() {
-    // 1st Generate random name for new connection for user
-    // In real world we could use applicant OTP verified phone number/token?
-    this.mydate = Date.now().valueOf();
-    this.connectName = this.mydate.toString();
-
-    const arr = new Int32Array(1);
-    crypto.getRandomValues<Int32Array>(arr);
-    const token = arr[0].toString();
-    console.log('TCL: SignupComponent -> invite -> token', token);
-
-
-    this.indyStatusMessage = 'Looking up connection: ' + this.connectName;
-    console.log('date based connection name: ' + this.connectName);
-
-    try {
-      // // Check if we don't have connection name already
-      // await this.vcxConnectionSvc
-      //   .apiConnectionsIdInviteGet(this.connectName)
-      //   .toPromise()
-      //   .then(invite => {
-      //     console.log('TCL: SignupComponent -> invite -> invite', invite);
-      //     // connection was found
-      //     this.indyStatusMessage = 'Found an invite. Showing QR';
-
-      //     // show existing invite
-      //     this.openModalWithComponent(invite.invitationString);
-      //     // Start poller to see if connection is established.
-      //   })
-      //   .catch(async e => {
-      //     console.error('TCL: SignupComponent -> invite -> e', e);
-      //     const err: HttpErrorResponse = e;
-      //     if (err.status === 404) {
-      //       // I didn't find and existing record.
-      this.indyStatusMessage = 'Creating connection ...';
-
-      await this.vcxConnectionSvc
-        .connectionCreate(this.connectName)
-        .toPromise()
-        .then(async conn => {
-          console.log('TCL: SignupComponent -> invite -> conn', conn);
-          // Connection is created
-          this.indyStatusMessage = 'Connection created. Getting invite data...';
-
-
-          // User is created so now we try get the invite code.
-          await this.vcxConnectionSvc
-            .connectionInvitationGet(this.connectName)
-            .toPromise()
-            .then(invite => {
-              const inv: InvitationString = JSON.parse(invite.invitationString);
-              inv.s.l = 'https://pbs.twimg.com/profile_images/1036552935658926081/bfjI50Q1_normal.jpg';
-              inv.s.n = 'SAFBCBank';
-              console.log('TCL: TesterComponent -> fillWithIndy -> inv', JSON.stringify(inv));
-              this.openModalWithComponent(JSON.stringify(inv));
-
-              // This is where I need to poll if the connection was accepted
-              this.indyStatusMessage = 'Found an invite. Showing QR';
-
-            })
-            .catch(e => {
-              console.error('TCL: SignupComponent -> invite -> e', e);
-            });
-        })
-        .catch(e => {
-          console.error('TCL: SignupComponent -> invite -> e', e);
-        });
-      // }
-
-
-
-      //     });
-    } catch (error) {
-      console.log('TCL: SignupComponent -> invite -> error', error);
-
-    }
-  }
-
-  onSubmit() {
-    // console.warn(this.signupForm.value);
-  }
-
-  openModalWithComponent(data) {
-    const initialState = {
-      title: 'Scan with your Identity Wallet App',
-      invitedata: data
+    // 1566771477146
+    const issueCred: CreateCredential = {
+      credDefId: 'safbc-account-' + this.formData.connectionId,
+      credentialName: 'safbc-account',
+      values: this.accountCred
     };
-    this.bsModalRef = this.modalService.show(ShowqrComponent, { initialState });
-    this.bsModalRef.content.closeBtnName = 'Close';
+
+    this.vcxCredentialSvc.credentialCreate(issueCred, this.formData.connectionId, 'safbc-account')
+      .pipe(
+        tap(r => {
+          console.log(r);
+          this.resourceId = r;
+        })
+      )
+      .subscribe();
+
   }
 
 }
