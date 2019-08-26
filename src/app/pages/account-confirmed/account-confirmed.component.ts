@@ -68,8 +68,11 @@ export class AccountConfirmedComponent implements OnInit {
    * issueAccountCred
    */
   public issueAccountCred() {
-    // 1566771477146
-    this.indyStatusMessage = 'Issueing credential.';
+    if (this.formData.connectionId === null) {
+      this.formData.connectionId = '1566674030127';   // testing value
+    }
+    //
+    this.indyStatusMessage = 'Issuing credential.';
     const issueCred: CreateCredential = {
       credDefId: 'safbc-account-' + this.formData.connectionId,
       credentialName: 'safbc-account',
