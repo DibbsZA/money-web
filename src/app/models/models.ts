@@ -14,3 +14,6 @@ export * from './resourceId.model';
 export * from './schema.model';
 export * from './sendMessage.model';
 export * from './solution.model';
+export * from './account-proof.model';
+export * from './forms.model';
+export * from './e-kyc.model';
