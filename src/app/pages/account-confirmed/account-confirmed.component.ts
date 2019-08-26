@@ -79,7 +79,9 @@ export class AccountConfirmedComponent implements OnInit {
       values: this.accountCred
     };
 
-    this.vcxCredentialSvc.credentialCreate(issueCred, this.formData.connectionId, 'safbc-account')
+    const credId = this.formData.connectionId + '-cred-' + Math.floor(Date.now() / 1000).toString();
+
+    this.vcxCredentialSvc.credentialCreate(issueCred, this.formData.connectionId, credId)
       .pipe(
         tap(r => {
           this.indyStatusMessage = 'Credential issued. \nConfirm acceptance in your Identity App.';
