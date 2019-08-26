@@ -89,7 +89,8 @@
           </div>
           <div class="col-sm-6">
             <div class="form-group infield show-label">
-              {{ state$ | async | json }}
+              <label>Status Messages</label>
+              <span>{{ indyStatusMessage }}</span>
             </div>
           </div>
         </div>
@@ -98,10 +99,10 @@
 
 
     <div class="loanflow-buttons icon-buttons">
-      <button (click)="issueAccountCred()" class="btn success-light warning-light">ISSUE WITH <img
+      <button (click)="issueAccountCred()" class="btn success-light warning-light">ACCEPT with <img
           src="../../../assets/favicon.png" style="height: 25px"> Sovrin</button>
       <!-- <button type="submit" [disabled]="!signupForm.valid" class="btn success-light">NEXT</button> -->
-      <span *ngIf="indyLoading">Indy status: {{ indyStatusMessage }}</span>
+
     </div>
     <!-- </form> -->
   </div>
