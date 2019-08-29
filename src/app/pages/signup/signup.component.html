@@ -193,11 +193,12 @@
       <div class="loanflow-buttons icon-buttons">
         <button type="button" (click)="invite()" class="btn success-light warning-light" *ngIf="!proofSent">CONNECT WITH
           <img src="../../../assets/favicon.png" style="height: 25px"> Sovrin</button>
-        <button type="button" (click)="getProofResponse('0f48a833-20f1-4adb-aa98-1a5f1a92b483')"
-          class="btn success-light">GET ID DATA 0f48a833-20f1-4adb-aa98-1a5f1a92b483</button>
-        <button type="button" (click)="getProofResponse(proofReqUID)" *ngIf="proofSent" class="btn success-light">FILL
-          <img src="../../../assets/favicon.png" style="height: 25px"> ID</button>
-        <button type="submit" [disabled]="!signupForm.valid" class="btn success-light">APPLY</button>
+        <!-- <button type="button" (click)="getProofResponse('0f48a833-20f1-4adb-aa98-1a5f1a92b483')"
+          class="btn success-light">GET ID DATA 0f48a833-20f1-4adb-aa98-1a5f1a92b483</button> -->
+        <button type="button" (click)="getProofResponse(proofReqUID)" *ngIf="proofSent && !signupForm.valid"
+          class="btn success-light">FILL WITH <img src="../../../assets/favicon.png" style="height: 25px"> Sovrin
+          ID</button>
+        <button type="submit" [disabled]="!signupForm.valid" class="btn success-light">COMPLETE APPLICATION</button>
 
       </div>
     </form>
