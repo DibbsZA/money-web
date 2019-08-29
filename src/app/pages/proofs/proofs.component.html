@@ -25,11 +25,22 @@
                 <input [(ngModel)]="connectionId" [ngModelOptions]="{standalone: true}" type="text" maxlength="50"
                   class="form-control" [value]="connectionId">
               </div>
+              <div class="form-group infield show-label">
+                <label>Attributes</label>
+                <div class="btn-group">
+                  <label class="btn btn-primary chkButtons" [(ngModel)]="selectedAttributes.email" btnCheckbox
+                    tabindex="0" role="button" [ngModelOptions]="{standalone: true}">Email</label>
+                  <label class="btn btn-success chkButtons" [(ngModel)]="selectedAttributes.cellphone" btnCheckbox
+                    tabindex="0" role="button" [ngModelOptions]="{standalone: true}">Cellphone</label>
+                  <label class="btn  btn-warning chkButtons" [(ngModel)]="selectedAttributes.fullAddress" btnCheckbox
+                    tabindex="0" role="button" [ngModelOptions]="{standalone: true}">Address</label>
+                </div>
+              </div>
               <div class="loanflow-buttons icon-buttons">
                 <!-- <button (click)="getProofsId(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
                   name="wf_do_next">Get Proofs</button> &nbsp; -->
                 <button (click)="sendProofRequest(connectionId)" id="wf_do_next" class="btn success-light btn-warning"
-                  name="wf_do_next">Request Attr from: {{ connectionId }} </button>
+                  name="wf_do_next" [disabled]="">Request Attributes from: {{ connectionId }} </button>
               </div>
               <h5>Select Connection</h5>
               <accordion>

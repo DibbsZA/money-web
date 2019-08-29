@@ -1,0 +1,13 @@
+.chkButtons {
+  max-height: unset !important;
+  height: unset !important;
+  display: unset !important;
+  color: unset !important;
+  overflow: unset !important;
+  position: unset !important;
+  top: unset !important;
+  left: unset !important;
+  padding: unset !important;
+  font-size: unset !important;
+  font-weight: unset !important;
+}

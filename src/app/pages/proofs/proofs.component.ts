@@ -18,6 +18,12 @@ export class ProofsComponent implements OnInit {
   proofData$: Observable<Proof>;
   connectionsData$: Observable<Connection[]>;
   proofResult: string;
+  selectedAttributes = {
+    email: false,
+    cellphone: false,
+    fullAddress: false
+  };
+  proofAttributes = [];
 
   constructor(
     private vcxProofSvc: ProofsService,
@@ -56,22 +62,40 @@ export class ProofsComponent implements OnInit {
   }
 
   public async sendProofRequest(id: string) {
+    this.proofAttributes = [];
+    if (this.selectedAttributes.email) {
+      this.proofAttributes.push('email');
+    }
+    if (this.selectedAttributes.cellphone) {
+      this.proofAttributes.push('cellphone');
+    }
+    if (this.selectedAttributes.fullAddress) {
+      this.proofAttributes.push('fullAddress');
+    }
+
     const req: CreateProof = {
-      attributes: ['sex', 'status'],
-      name: 'Kane'
+      attributes: this.proofAttributes,
+      name: 'Proof Request Test'
     };
 
-    await this.vcxProofSvc.proofRequest(req, id)
-      .toPromise()
-      .then(r => {
-        console.log('TCL: TesterComponent -> sendCredentialRequest -> r', r);
-        this.proofResult = 'Requested ' + req.attributes + ' from: ' + JSON.stringify(r);
-      })
-      .catch(e => {
-        console.log('TCL: TesterComponent -> sendCredentialRequest -> e', e);
-        this.proofResult = 'Error: ' + JSON.stringify(e);
+    if (this.proofAttributes.length > 0) {
 
-      });
+      await this.vcxProofSvc.proofRequest(req, id)
+        .toPromise()
+        .then(r => {
+          console.log('TCL: TesterComponent -> sendCredentialRequest -> r', r);
+          this.proofResult = 'Requested ' + req.attributes + ' from: ' + JSON.stringify(r);
+        })
+        .catch(e => {
+          console.log('TCL: TesterComponent -> sendCredentialRequest -> e', e);
+          this.proofResult = 'Error: ' + JSON.stringify(e);
+
+        });
+    } else {
+      console.log('No attributes selected');
+    }
+
+
   }
 
 }
