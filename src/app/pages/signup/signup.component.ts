@@ -152,7 +152,7 @@ export class SignupComponent implements OnInit {
         const inv: InvitationString = JSON.parse(invite.invitationString);
 
         // Uncomment to Intercept & replace invitation data for testing
-        // inv.s.l = 'https://pbs.twimg.com/profile_images/1036552935658926081/bfjI50Q1_normal.jpg';
+        inv.s.l = 'https://pbs.twimg.com/profile_images/1036552935658926081/bfjI50Q1_normal.jpg';
         inv.s.n = 'SAFBC Bank ' + id;
 
         this.indyStatusMessage = 'Showing Invitation QR: ' + inv.s.n;

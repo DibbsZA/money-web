@@ -75,7 +75,7 @@ export class CredentialsComponent implements OnInit {
 
     this.createData = {
       credDefId: 'omb-email',
-      credentialName: this.connectionId + '-cred-' + 'Email1',
+      credentialName: 'Email ' + Math.floor(Date.now() / 1000).toString(),
       values: this.credAttributes
     };
 
@@ -83,7 +83,7 @@ export class CredentialsComponent implements OnInit {
       .credentialCreate(
         this.createData,
         this.connectionId,
-        'omb-email2')
+        'Email' + Date.now().toString())
       .toPromise()
       .then(r => {
         console.log('TCL: CredentialsComponent -> issueCreds -> r', r);
