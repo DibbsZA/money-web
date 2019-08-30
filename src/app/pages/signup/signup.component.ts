@@ -238,7 +238,7 @@ export class SignupComponent implements OnInit {
           console.log(x);
           this.proofReqUID = x.id;
           this.proofSent = true;
-          this.indyStatusMessage = 'Sent credential request to your phone. \nPlease confirm it in the app and then click FILL ID below. ';
+          this.indyStatusMessage = 'We\'ve sent a credential request to your phone. \nPlease confirm it in the app and then click the \nFILL WITH SOVRIN ID button below. ';
           return x.id;
         })
       )
