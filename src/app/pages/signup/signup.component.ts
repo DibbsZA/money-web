@@ -153,8 +153,8 @@ export class SignupComponent implements OnInit {
 
         // Uncomment to Intercept & replace invitation data for testing
         inv.s.l = 'https://pbs.twimg.com/profile_images/1036552935658926081/bfjI50Q1_normal.jpg';
-        inv.s.n = 'SAFBC Bank ' + id;
-
+        // inv.s.n = 'SAFBC Bank ' + id;
+        inv.s.n = 'SAFBC Bank';
         this.indyStatusMessage = 'Showing Invitation QR: ' + inv.s.n;
         // console.log('TCL: TesterComponent -> fillWithIndy -> inv', JSON.stringify(inv));
         // console.log('TCL: TesterComponent -> fillWithIndy -> invite', invite);
@@ -238,7 +238,7 @@ export class SignupComponent implements OnInit {
           console.log(x);
           this.proofReqUID = x.id;
           this.proofSent = true;
-          this.indyStatusMessage = 'Sent credential request to your phone. \nPlease confirm it in the app and then click FILL ID below. ';
+          this.indyStatusMessage = 'We\'ve sent a credential request to your phone. \nPlease confirm it in the app and then click the \nFILL WITH SOVRIN ID button below. ';
           return x.id;
         })
       )
