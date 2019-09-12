@@ -33,7 +33,7 @@
           </p>
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group infield show-label">
+              <div class="form-group infield ashow-label">
                 <label for="fidnumber">ID number</label>
                 <input formControlName="identityNumber" type="number" class="form-control" id='fidnumber'
                   placeholder="ID number" required minlength="13" [readOnly]="kycIdFilled">
@@ -48,7 +48,7 @@
               </div>
             </div>
             <div class="col-sm-6">
-              <div class="form-group infield show-label">
+              <div class="form-group infield ashow-label">
                 <label for="ftitle">Title</label>
                 <select formControlName="sex" class="form-control no-selection" id="ftitle" [disabled]="kycSexFilled">
                   <option value="" selected>Title</option>
@@ -68,7 +68,7 @@
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group infield show-label ">
+              <div class="form-group infield ashow-label ">
                 <label for="ffname">Given Name(s)</label>
                 <input formControlName="names" type="text" maxlength="50" class="form-control" id="ffname"
                   placeholder="Given Name(s)" [value]="fnames.value" required [readOnly]="kycNameFilled">
@@ -82,7 +82,7 @@
 
             </div>
             <div class="col-sm-6">
-              <div class="form-group infield show-label ">
+              <div class="form-group infield ashow-label ">
                 <label for="fdateOfBirth">Date Of Birth</label>
                 <input formControlName="dateOfBirth" type="text" required class="form-control" id="fdateOfBirth"
                   placeholder="Date Of Birth" [readOnly]="kycDobFilled">
@@ -97,7 +97,7 @@
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group infield show-label ">
+              <div class="form-group infield ashow-label ">
                 <label for="flname">Surname</label>
                 <input formControlName="surname" type="text" maxlength="50" class="form-control" id="flname"
                   placeholder="Surname" required [readOnly]="kycSurnameFilled">
@@ -110,7 +110,7 @@
               </div>
             </div>
             <div class="col-sm-6">
-              <div class="form-group infield show-label ">
+              <div class="form-group infield ashow-label ">
                 <label for="fcellphone">Cell phone number</label>
                 <input formControlName="cellphone" type="tel" maxlength="12" id="fcellphone" class="form-control"
                   id="fcellphone" placeholder="Cell phone number" required [readOnly]="kycCellFilled">
@@ -125,7 +125,7 @@
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group infield show-label ">
+              <div class="form-group infield ashow-label ">
                 <label for="fnationality">Nationality</label>
                 <select formControlName='nationality' required id="fnationality" class="form-control no-selection"
                   [disabled]="kycNationalityFilled">
@@ -144,7 +144,7 @@
               </div>
             </div>
             <div class="col-sm-6">
-              <div class="form-group infield show-label">
+              <div class="form-group infield ashow-label">
                 <label for="femailaddress">Email Address</label>
                 <input formControlName='email' type="email" maxlength="50" class="form-control" id="femailaddress"
                   placeholder="Email Address" [readOnly]="kycEmailFilled">
@@ -159,7 +159,7 @@
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group infield show-label">
+              <div class="form-group infield ashow-label">
                 <label for="faddress">Address</label>
                 <textarea formControlName='fullAddress' type="text" class="form-control" id="faddress"
                   [readOnly]="kycAddrFilled"></textarea>
