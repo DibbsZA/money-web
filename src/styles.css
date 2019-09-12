@@ -878,20 +878,20 @@ p.footnote {
 
 @font-face {
   font-family: 'MontLight';
-  src: url(/assets/fonts/MontserratLight.eot);
+  /* src: url(/assets/fonts/MontserratLight.eot); */
   src: url(/assets/fonts/MontserratLight.woff) format('woff'), url(/assets/fonts/MontserratLight.ttf) format('truetype')
 }
 
 @font-face {
   font-family: 'MontReg';
-  src: url('/src/assets/fonts/montserratregular-webfont.eot');
-  src: url('/src/assets/fonts/montserratregular-webfont.woff') format('woff'), url('/src/assets/fonts/montserratregular-webfont.ttf') format('truetype')
+  /* src: url('/assets/fonts/montserratregular-webfont.eot'); */
+  src: url(/assets/fonts/montserratregular-webfont.woff) format('woff'), url(/assets/fonts/montserratregular-webfont.ttf) format('truetype')
 }
 
 @font-face {
   font-family: 'MontHeavy';
-  src: url('/src/assets/fonts/MontserratBold.eot');
-  src: url('/src/assets/fonts/MontserratBold.woff') format('woff'), url('/src/assets/fonts/MontserratBold.ttf') format('truetype')
+  /* src: url('/src/assets/fonts/MontserratBold.eot'); */
+  /* src: url('/src/assets/fonts/MontserratBold.woff') format('woff'), url('/src/assets/fonts/MontserratBold.ttf') format('truetype') */
 }
 
 .top-content {
@@ -1820,8 +1820,8 @@ option.empty_option {
   color: #adadad
 }
 
-.infield.show-label label,
-.infield.show-label fieldset {
+.infield.ashow-label label,
+.infield.ashow-label fieldset {
   max-height: 12px;
   height: 12px
 }
@@ -1906,7 +1906,7 @@ option.empty_option {
   right: 40px
 }
 
-.infield.notinfield label,
+/* .infield.notinfield label,
 .infield.notinfield fieldset {
   max-height: none;
   position: static;
@@ -1917,7 +1917,7 @@ option.empty_option {
 
 .infield.notinfield .form-control-feedback {
   top: 23px
-}
+} */
 
 .form-group.infield.notinfield {
   margin-bottom: 14px
@@ -3149,7 +3149,7 @@ a.thumbnail:hover {
 .sectionline,
 .breakline,
 .sectionTopLine {
-  background: url(/assets/images/section-1170.png) no-repeat center bottom;
+  /* background: url(/assets/images/section-1170.png) no-repeat center bottom; */
   padding-bottom: 60px;
   margin-bottom: 20px
 }
